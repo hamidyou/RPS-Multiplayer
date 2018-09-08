@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Rock, Paper, Scissors</title>
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+  <div class="jumbotron bg-primary">
+    <h1 class="display-3">Jumbo heading</h1>
+    <p class="lead">Jumbo helper text</p>
+    <hr class="my-2">
+    <p>More info</p>
+    <p class="lead">
+      <a class="btn btn-dark btn-lg" href="Jumbo action link" role="button">Jumbo action name</a>
+    </p>
+  </div>
+  <div class="row text-center">
+    <div class="col">
+      <h2>Player 1</h2>
+      <section class="selection">
+        <h4 id="p1Selection">Placeholder</h4>
+      </section>
+      <button type="button" class="btn btn-primary p1option" value="Rock">Rock</button>
+      <button type="button" class="btn btn-primary p1option" value="Paper">Paper</button>
+      <button type="button" class="btn btn-primary p1option" value="Scissors">Scissors</button>
+    </div>
+    <div class="col">
+      <h2>Results</h2>
+      <p id="results"></p>
+    </div>
+    <div class="col">
+      <h2>Player 2</h2>
+      <section class="selection">
+        <h4 id="p2Selection">Placeholder</h4>
+      </section>
+      <button type="button" class="btn btn-primary p2option" value="Rock">Rock</button>
+      <button type="button" class="btn btn-primary p2option" value="Paper">Paper</button>
+      <button type="button" class="btn btn-primary p2option" value="Scissors">Scissors</button>
+    </div>
+  </div>
+
+</body>
+<script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDoky_mPx1W0HzdzHvDY2mMuTk2bXN47_Q",
+    authDomain: "rps-multiplayer-cdde7.firebaseapp.com",
+    databaseURL: "https://rps-multiplayer-cdde7.firebaseio.com",
+    projectId: "rps-multiplayer-cdde7",
+    storageBucket: "",
+    messagingSenderId: "552558430060"
+  };
+  firebase.initializeApp(config);
+</script>
+<script src="assets/js/app.js"></script>
+
+</html>
