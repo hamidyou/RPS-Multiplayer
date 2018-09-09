@@ -101,7 +101,7 @@ $(document).ready(function () {
   const auth = firebase.auth()
 
   $('#login').click(function () {
-    console.log(auth.UserInfo)
+    console.log(auth.AuthCredential)
   })
 
   setData(currentP1, 'wins', p1GameWins)
