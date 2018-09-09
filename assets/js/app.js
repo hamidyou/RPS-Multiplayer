@@ -97,7 +97,10 @@ $(document).ready(function () {
   let p2GameWins = 0
   let ties = 0
 
-  hide('.main')
+  // hide('.main')
+  $('#login').click(function () {
+    console.log(firebase.User);
+  }
   setData(currentP1, 'wins', p1GameWins)
   setData(currentP2, 'wins', p2GameWins)
   setData('currentGame', 'ties', ties)
