@@ -98,15 +98,27 @@ $(document).ready(function () {
   let ties = 0
 
   // hide('.main')
-  const auth = firebase.auth()
-  const user = firebase.user()
-  const UserInfo = firebase.UserInfo()
-
-  $('#login').click(function () {
-    console.log(auth)
-    console.log(user)
-    console.log(UserInfo)
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      console.log('user is signed in')
+      console.log(user)
+    } else {
+      console.log('no user')
+    }
   })
+
+  const user = firebase.auth().currentUser;
+  let name = ''
+  let email = ''
+  let uid = ''
+
+  if (user != null) {
+    name = user.displayName;
+    email = user.email;
+    uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+    // this value to authenticate with your backend server, if
+    // you have one. Use User.getToken() instead.
+  }
 
   setData(currentP1, 'wins', p1GameWins)
   setData(currentP2, 'wins', p2GameWins)
