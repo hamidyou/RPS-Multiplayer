@@ -99,7 +99,7 @@ $(document).ready(function () {
 
   // hide('.main')
   $('#login').click(function () {
-    console.log(firebase.User)
+    console.log(firebase.UserInfo)
   })
 
   setData(currentP1, 'wins', p1GameWins)
