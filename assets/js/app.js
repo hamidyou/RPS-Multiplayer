@@ -9,7 +9,6 @@ $(document).ready(function () {
       },
       uiShown: function () {
         document.getElementById('loader').style.display = 'none'
-        console.log('authenticated')
       }
     },
     // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
@@ -45,6 +44,9 @@ $(document).ready(function () {
 
   // The start method will wait until the DOM is loaded.
   ui.start('#firebaseui-auth-container', uiConfig)
+
+  console.log('authenticated')
+  console.log(firebase.User)
 
   const database = firebase.database()
   const setText = (elm, str) => $(elm).text(str)
