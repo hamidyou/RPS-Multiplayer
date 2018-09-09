@@ -1,12 +1,59 @@
 $(document).ready(function () {
+  // Initialize the FirebaseUI Widget using Firebase.
+  const ui = new firebaseui.auth.AuthUI(firebase.auth())
+
+  const uiConfig = {
+    callbacks: {
+      signInSuccessWithAuthResult: function (authResult, redirectUrl) {
+        return false
+      },
+      uiShown: function () {
+        document.getElementById('loader').style.display = 'none'
+      }
+    },
+    // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+    signInFlow: 'popup',
+    // signInSuccessUrl: '<url-to-redirect-to-on-success>',
+    signInOptions: [
+      // Leave the lines as is for the providers you want to offer your users.
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+      // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+      firebase.auth.GithubAuthProvider.PROVIDER_ID,
+      firebase.auth.EmailAuthProvider.PROVIDER_ID
+      // firebase.auth.PhoneAuthProvider.PROVIDER_ID
+    ]
+    // Terms of service url.
+    // tosUrl: '<your-tos-url>',
+    // Privacy policy url.
+    // privacyPolicyUrl: '<your-privacy-policy-url>'
+  }
+
+  ui.start('#firebaseui-auth-container', {
+    signInOptions: [
+      {
+        provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+        requireDisplayName: false
+      },
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+      firebase.auth.GithubAuthProvider.PROVIDER_ID
+    ]
+    // Other config options...
+  })
+
+  // The start method will wait until the DOM is loaded.
+  ui.start('#firebaseui-auth-container', uiConfig)
+
   const database = firebase.database()
   const setText = (elm, str) => $(elm).text(str)
   const tie = (x, y) => x === y
   const and = (x, y) => x && y
   const or = (x, y) => x || y
-  const rock = (x) => x === 'Rock'
-  const paper = (x) => x === 'Paper'
-  const scissors = (x) => x === 'Scissors'
+  const rock = x => x === 'Rock'
+  const paper = x => x === 'Paper'
+  const scissors = x => x === 'Scissors'
+  const hide = x => $(x).hide()
   const currentP1 = 'currentGame/player1/'
   const currentP2 = 'currentGame/player2/'
   let player1 = ''
@@ -47,6 +94,7 @@ $(document).ready(function () {
   let p2GameWins = 0
   let ties = 0
 
+  hide('.main')
   setData(currentP1, 'wins', p1GameWins)
   setData(currentP2, 'wins', p2GameWins)
   setData('currentGame', 'ties', ties)
@@ -71,6 +119,7 @@ $(document).ready(function () {
       setText('#p1Selection', p1Selection)
       setData(currentP1, 'selection', p1Selection)
       p1Ready = true
+      console.log(player1)
     }
   }
 
@@ -104,6 +153,8 @@ $(document).ready(function () {
     p2GameWins = snapshot.val().currentGame.player2.wins
     p1Selection = snapshot.val().currentGame.player1.selection
     p2Selection = snapshot.val().currentGame.player2.selection
+    player1 = snapshot.val().currentGame.player1.userId
+    player2 = snapshot.val().currentGame.player2.userId
   }, function (errorObject) {
     console.log('The read failed: ' + errorObject.code)
   })
@@ -122,12 +173,11 @@ $(document).ready(function () {
     if (snap.val()) {
       // Add user to the connections list.
       con = connectionsRef.push(true)
+      console.log(con)
       if (player1 === '') {
         setData(currentP1, 'userId', con.key)
-        player1 = con.key
       } else if (player2 === '') {
         setData(currentP2, 'userId', con.key)
-        player1 = con.key
       }
       // Remove user from the connection list when they disconnect.
       con.onDisconnect().remove()
