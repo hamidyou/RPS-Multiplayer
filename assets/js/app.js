@@ -98,8 +98,10 @@ $(document).ready(function () {
   let ties = 0
 
   // hide('.main')
+  const auth = firebase.auth()
+
   $('#login').click(function () {
-    console.log(firebase.auth().UserInfo.uid)
+    console.log(auth.UserInfo)
   })
 
   setData(currentP1, 'wins', p1GameWins)
