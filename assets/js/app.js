@@ -9,6 +9,9 @@ $(document).ready(function () {
   const scissors = (x) => x === 'Scissors'
   const currentP1 = 'currentGame/player1/'
   const currentP2 = 'currentGame/player2/'
+  let player1 = ''
+  let player2 = ''
+  let con = {}
 
   const setData = function (parent, test, value) {
     var obj = {}
@@ -63,17 +66,23 @@ $(document).ready(function () {
   }
 
   const p1Click = function (x) {
-    p1Selection = $(x).val()
-    setText('#p1Selection', p1Selection)
-    setData(currentP1, 'selection', p1Selection)
-    p1Ready = true
+    if (player1 === con.key) {
+      p1Selection = $(x).val()
+      setText('#p1Selection', p1Selection)
+      setData(currentP1, 'selection', p1Selection)
+      p1Ready = true
+    }
   }
 
   const p2Click = function (x) {
-    p2Selection = $(x).val()
-    setText('#p2Selection', p2Selection)
-    setData(currentP2, 'selection', p2Selection)
-    p2Ready = true
+    if (player2 === con.key) {
+      p2Selection = $(x).val()
+      setText('#p2Selection', p2Selection)
+      setData(currentP2, 'selection', p2Selection)
+      p2Ready = true
+    } else {
+      setText('#p2Selection', 'Wrong Player')
+    }
   }
 
   $(document).on('click', '.p1option', function () {
@@ -97,5 +106,38 @@ $(document).ready(function () {
     p2Selection = snapshot.val().currentGame.player2.selection
   }, function (errorObject) {
     console.log('The read failed: ' + errorObject.code)
+  })
+
+  // Store Connections
+  const connectionsRef = database.ref('/connections')
+
+  // '.info/connected' is a special location provided by Firebase that is updated
+  // every time the client's connection state changes.
+  // '.info/connected' is a boolean value, true if the client is connected and false if they are not.
+  const connectedRef = database.ref('.info/connected')
+
+  // When the client's connection state changes...
+  connectedRef.on('value', function (snap) {
+    // If they are connected..
+    if (snap.val()) {
+      // Add user to the connections list.
+      con = connectionsRef.push(true)
+      if (player1 === '') {
+        setData(currentP1, 'userId', con.key)
+        player1 = con.key
+      } else if (player2 === '') {
+        setData(currentP2, 'userId', con.key)
+        player1 = con.key
+      }
+      // Remove user from the connection list when they disconnect.
+      con.onDisconnect().remove()
+    }
+  })
+
+  // When first loaded or when the connections list changes...
+  connectionsRef.on('value', function (snap) {
+    if (snap.numChildren === 2) {
+      setText('#results', 'You May Begin')
+    }
   })
 })
