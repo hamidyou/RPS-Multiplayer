@@ -37,7 +37,11 @@
     </div>
     <div class="col">
       <h2>Results</h2>
-      <p id="results"></p>
+      <h4 id="results"></h4>
+      <div class="row">
+        <p class="col" id="score">0 - 0 - 0</p>
+      </div>
+
     </div>
     <div class="col">
       <h2>Player 2</h2>
@@ -51,7 +55,19 @@
   </div>
 
 </body>
-
+<script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAZIbCQBb7QAgjq7OAlmLDoQtrU5KNhloo",
+    authDomain: "rps-multiplayer-cb1b5.firebaseapp.com",
+    databaseURL: "https://rps-multiplayer-cb1b5.firebaseio.com",
+    projectId: "rps-multiplayer-cb1b5",
+    storageBucket: "rps-multiplayer-cb1b5.appspot.com",
+    messagingSenderId: "867942937107"
+  };
+  firebase.initializeApp(config);
+</script>
 <script src="assets/js/app.js"></script>
 
 </html>
