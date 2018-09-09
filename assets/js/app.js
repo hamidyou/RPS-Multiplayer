@@ -99,8 +99,9 @@ $(document).ready(function () {
 
   // hide('.main')
   $('#login').click(function () {
-    console.log(firebase.User);
-  }
+    console.log(firebase.User)
+  })
+
   setData(currentP1, 'wins', p1GameWins)
   setData(currentP2, 'wins', p2GameWins)
   setData('currentGame', 'ties', ties)
