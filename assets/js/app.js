@@ -9,6 +9,7 @@ $(document).ready(function () {
       },
       uiShown: function () {
         document.getElementById('loader').style.display = 'none'
+        console.log('authenticated')
       }
     },
     // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
