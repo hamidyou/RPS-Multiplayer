@@ -104,17 +104,11 @@ $(document).ready(function () {
   let name = ''
   let uid = ''
 
-  if (user != null) {
-    name = user.displayName
-    uid = user.uid
-    // The user's ID, unique to the Firebase project. Do NOT use
-    // this value to authenticate with your backend server, if
-    // you have one. Use User.getToken() instead.
-  }
-
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
       show('.main')
+      name = user.displayName
+      uid = user.uid
       console.log(user)
       console.log(uid)
       console.log(name)
