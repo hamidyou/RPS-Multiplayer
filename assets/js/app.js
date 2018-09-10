@@ -124,8 +124,8 @@ $(document).ready(function () {
     p2Exists()
   }
 
-  const p1Exists = () => typeof data.currentGame.player1.userId !== 'undefined'
-  const p2Exists = () => typeof data.currentGame.player2.userId !== 'undefined'
+  const p1Exists = () => console.log(typeof data.currentGame.player1.userId)
+  const p2Exists = () => typeof data.currentGame.player2.userId
 
   const updateP1 = function () {
     updateData(currentP1, 'userId', uid)
