@@ -167,7 +167,6 @@ $(document).ready(function () {
     updateData(currentP2, 'selection', p2Selection)
     p2Ready = true
   }
-}
 
   $(document).on('click', '.p1option', function () {
     p1Click($(this))
