@@ -60,6 +60,7 @@ $(document).ready(function () {
   const show = x => $(x).show()
   const currentP1 = 'currentGame/player1/'
   const currentP2 = 'currentGame/player2/'
+  let data = {}
   let player1 = ''
   let player2 = ''
   let con = {}
@@ -106,6 +107,7 @@ $(document).ready(function () {
 
   firebase.auth().onAuthStateChanged(function (x) {
     if (x) {
+      console.log(data)
       show('.main')
       name = x.displayName
       uid = x.uid
@@ -184,14 +186,15 @@ $(document).ready(function () {
   })
 
   database.ref().on('value', function (snapshot) {
-    p1GameWins = snapshot.val().currentGame.player1.wins
-    p2GameWins = snapshot.val().currentGame.player2.wins
-    p1Selection = snapshot.val().currentGame.player1.selection
-    p2Selection = snapshot.val().currentGame.player2.selection
-    player1 = snapshot.val().currentGame.player1.userId
-    player2 = snapshot.val().currentGame.player2.userId
-    setText('#p1Name', snapshot.val().currentGame.player1.name)
-    setText('#p2Name', snapshot.val().currentGame.player2.name)
+    data = snapshot.val()
+    p1GameWins = data.currentGame.player1.wins
+    p2GameWins = data.currentGame.player2.wins
+    p1Selection = data.currentGame.player1.selection
+    p2Selection = data.currentGame.player2.selection
+    player1 = data.currentGame.player1.userId
+    player2 = data.currentGame.player2.userId
+    setText('#p1Name', data.currentGame.player1.name)
+    setText('#p2Name', data.currentGame.player2.name)
   }, function (errorObject) {
     console.log('The read failed: ' + errorObject.code)
   })
