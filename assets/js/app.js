@@ -125,12 +125,14 @@ $(document).ready(function () {
     updateData(currentP1, 'userId', uid)
     updateData(currentP1, 'name', name)
     setText('#p1Name', data.currentGame.player1.name)
+    hide('#p2hide')
   }
 
   const updateP2 = function () {
     updateData(currentP2, 'userId', uid)
     updateData(currentP2, 'name', name)
     setText('#p2Name', data.currentGame.player2.name)
+    hide('#p1hide')
   }
 
   hide('.main')
