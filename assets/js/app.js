@@ -104,35 +104,30 @@ $(document).ready(function () {
   let name = ''
   let uid = ''
 
-  firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
-      console.log('here')
+  firebase.auth().onAuthStateChanged(function (x) {
+    if (x) {
       show('.main')
-      console.log(user)
-      console.log(player2)
-      console.log(player1)
-      name = user.displayName
-      uid = user.uid
+      name = x.displayName
+      uid = x.uid
       updateData('users', 'uid', uid)
       updateData('users/' + uid, 'name', name)
-      if (!player1) {
-        updateData(currentP1, 'userId', uid)
-        updateData(currentP1, 'name', name)
-      } else if (!player2) {
-        console.log('p2')
-        updateData(currentP2, 'userId', uid)
-        updateData(currentP2, 'name', name)
-      }
     } else {
       console.log('no user')
-      console.log(player1)
-      console.log(player2)
     }
   })
 
+  const updateP1 = function () {
+    updateData(currentP1, 'userId', uid)
+    updateData(currentP1, 'name', name)
+    updateData(currentP1, 'wins', p1GameWins)
+  }
+  const updateP2 = function () {
+    updateData(currentP2, 'userId', uid)
+    updateData(currentP2, 'name', name)
+    updateData(currentP2, 'wins', p1GameWins)
+  }
+
   hide('.main')
-  updateData(currentP1, 'wins', p1GameWins)
-  updateData(currentP2, 'wins', p2GameWins)
   updateData('currentGame', 'ties', ties)
 
   const compare = function (x, y) {
