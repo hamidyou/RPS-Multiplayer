@@ -183,9 +183,9 @@ $(document).ready(function () {
   })
 
   database.ref().on('value', function (snapshot) {
-    console.log('dataChange');
+    console.log('dataChange')
     console.log(p1Ready)
-    console.log(p2Ready);
+    console.log(p2Ready)
     data = snapshot.val()
     p1GameWins = data.currentGame.player1.wins
     p2GameWins = data.currentGame.player2.wins
@@ -200,25 +200,25 @@ $(document).ready(function () {
   // Store Connections
   const connectionsRef = database.ref('/connections')
 
-// '.info/connected' is a special location provided by Firebase that is updated
-// every time the client's connection state changes.
-// '.info/connected' is a boolean value, true if the client is connected and false if they are not.
-const connectedRef = database.ref('.info/connected')
+  // '.info/connected' is a special location provided by Firebase that is updated
+  // every time the client's connection state changes.
+  // '.info/connected' is a boolean value, true if the client is connected and false if they are not.
+  const connectedRef = database.ref('.info/connected')
 
-// When the client's connection state changes...
-connectedRef.on('value', function (snap) {
+  // When the client's connection state changes...
+  connectedRef.on('value', function (snap) {
   // If they are connected..
-  if (snap.val()) {
+    if (snap.val()) {
     // Add user to the connections list.
-    con = connectionsRef.push(true)
-    con.onDisconnect().remove()
-  }
-})
+      con = connectionsRef.push(true)
+      con.onDisconnect().remove()
+    }
+  })
 
-// When first loaded or when the connections list changes...
-connectionsRef.on('value', function (snap) {
-  if (snap.numChildren === 2) {
-    setText('#results', 'You May Begin')
-  }
-})
+  // When first loaded or when the connections list changes...
+  connectionsRef.on('value', function (snap) {
+    if (snap.numChildren === 2) {
+      setText('#results', 'You May Begin')
+    }
+  })
 })
