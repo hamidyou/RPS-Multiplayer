@@ -99,16 +99,6 @@ $(document).ready(function () {
   let ties = 0
 
   // hide('.main')
-  firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
-      show('.main')
-      console.log(user);
-      updateData('users', 'uid', uid)
-      updateData('users', 'name', name)
-    } else {
-      console.log('no user')
-    }
-  })
 
   const user = firebase.auth().currentUser
   let name = ''
@@ -121,6 +111,19 @@ $(document).ready(function () {
     // this value to authenticate with your backend server, if
     // you have one. Use User.getToken() instead.
   }
+
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      show('.main')
+      console.log(user)
+      console.log(uid)
+      console.log(name)
+      updateData('users', 'uid', uid)
+      updateData('users', 'name', name)
+    } else {
+      console.log('no user')
+    }
+  })
 
   hide('.main')
   updateData(currentP1, 'wins', p1GameWins)
