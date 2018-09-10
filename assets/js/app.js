@@ -49,6 +49,7 @@ $(document).ready(function () {
   console.log(firebase.User)
 
   const database = firebase.database()
+  const auth = firebase.auth()
   const setText = (elm, str) => $(elm).text(str)
   const tie = (x, y) => x === y
   const and = (x, y) => x && y
@@ -98,34 +99,42 @@ $(document).ready(function () {
   let p1GameWins = 0
   let p2GameWins = 0
   let ties = 0
-
-  // hide('.main')
-
-  const user = firebase.auth().currentUser
   let name = ''
   let uid = ''
 
   firebase.auth().onAuthStateChanged(function (x) {
     if (x) {
       console.log(data)
-      show('.main')
-      name = x.displayName
-      uid = x.uid
-      updateData('users', 'uid', uid)
-      updateData('users/' + uid, 'name', name)
+      login(x)
+      if (!p1Exists) updateP1()
+      else if (!p2Exists) updateP2()
+      else alert('Please wait your turn')
     } else {
       console.log('no user')
     }
   })
 
+  const login = function (x) {
+    show('.main')
+    name = x.displayName
+    uid = x.uid
+    updateData('users', 'uid', uid)
+    updateData('users/' + uid, 'name', name)
+  }
+
+  const p1Exists = () => typeof data.currentGame.player1.userId !== 'undefined'
+  const p2Exists = () => typeof data.currentGame.player2.userId !== 'undefined'
+
   const updateP1 = function () {
     updateData(currentP1, 'userId', uid)
     updateData(currentP1, 'name', name)
+    setText('#p1Name', data.currentGame.player1.name)
   }
 
   const updateP2 = function () {
     updateData(currentP2, 'userId', uid)
     updateData(currentP2, 'name', name)
+    setText('#p2Name', data.currentGame.player2.name)
   }
 
   hide('.main')
@@ -193,8 +202,6 @@ $(document).ready(function () {
     p2Selection = data.currentGame.player2.selection
     player1 = data.currentGame.player1.userId
     player2 = data.currentGame.player2.userId
-    setText('#p1Name', data.currentGame.player1.name)
-    setText('#p2Name', data.currentGame.player2.name)
   }, function (errorObject) {
     console.log('The read failed: ' + errorObject.code)
   })
