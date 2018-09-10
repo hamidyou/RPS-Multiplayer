@@ -116,6 +116,7 @@ $(document).ready(function () {
         updateData(currentP1, 'userId', uid)
         updateData(currentP1, 'name', name)
       } else if (player2 === '') {
+        console.log('p2');
         updateData(currentP2, 'userId', uid)
         updateData(currentP2, 'name', name)
       }
