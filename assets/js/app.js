@@ -104,11 +104,9 @@ $(document).ready(function () {
 
   firebase.auth().onAuthStateChanged(function (x) {
     if (x) {
-      console.log(data)
       login(x)
-      console.log(p1Exists())
-      if (!p1Exists()) updateP1()
-      else if (!p2Exists()) updateP2()
+      if (typeof data.currentGame.player1.userId === 'undefined') updateP1()
+      else if (typeof data.currentGame.player2.userId === 'undefined') updateP2()
       else alert('Please wait your turn')
     } else {
       console.log('no user')
@@ -122,9 +120,6 @@ $(document).ready(function () {
     updateData('users', 'uid', uid)
     updateData('users/' + uid, 'name', name)
   }
-
-  const p1Exists = () => typeof data.currentGame.player1.userId !== 'undefined'
-  const p2Exists = () => typeof data.currentGame.player2.userId !== 'undefined'
 
   const updateP1 = function () {
     updateData(currentP1, 'userId', uid)
