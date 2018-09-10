@@ -184,6 +184,8 @@ $(document).ready(function () {
 
   database.ref().on('value', function (snapshot) {
     console.log('dataChange');
+    console.log(p1Ready)
+    console.log(p2Ready);
     data = snapshot.val()
     p1GameWins = data.currentGame.player1.wins
     p2GameWins = data.currentGame.player2.wins
