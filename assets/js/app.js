@@ -109,6 +109,8 @@ $(document).ready(function () {
       console.log('here')
       show('.main')
       console.log(user)
+      console.log(player2)
+      console.log(player1);
       name = user.displayName
       uid = user.uid
       updateData('users', 'uid', uid)
