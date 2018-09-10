@@ -113,7 +113,7 @@ $(document).ready(function () {
       console.log(uid)
       console.log(name)
       updateData('users', 'uid', uid)
-      updateData('users', 'name', name)
+      updateData('users/' + uid, 'name', name)
       if (player1 === '') {
         updateData(currentP1, 'userId', uid)
       } else if (player2 === '') {
