@@ -106,6 +106,7 @@ $(document).ready(function () {
     if (x) {
       console.log(data)
       login(x)
+      console.log(p1Exists())
       if (!p1Exists()) updateP1()
       else if (!p2Exists()) updateP2()
       else alert('Please wait your turn')
