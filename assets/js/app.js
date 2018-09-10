@@ -119,16 +119,17 @@ $(document).ready(function () {
   const updateP1 = function () {
     updateData(currentP1, 'userId', uid)
     updateData(currentP1, 'name', name)
-    updateData(currentP1, 'wins', p1GameWins)
   }
+
   const updateP2 = function () {
     updateData(currentP2, 'userId', uid)
     updateData(currentP2, 'name', name)
-    updateData(currentP2, 'wins', p1GameWins)
   }
 
   hide('.main')
   updateData('currentGame', 'ties', ties)
+  updateData(currentP2, 'wins', p1GameWins)
+  updateData(currentP1, 'wins', p1GameWins)
 
   const compare = function (x, y) {
     if (tie(x, y)) {
@@ -183,7 +184,6 @@ $(document).ready(function () {
   })
 
   database.ref().on('value', function (snapshot) {
-    console.log('data change')
     p1GameWins = snapshot.val().currentGame.player1.wins
     p2GameWins = snapshot.val().currentGame.player2.wins
     p1Selection = snapshot.val().currentGame.player1.selection
