@@ -116,7 +116,7 @@ $(document).ready(function () {
         updateData(currentP1, 'userId', uid)
         updateData(currentP1, 'name', name)
       } else if (player2 === '') {
-        console.log('p2');
+        console.log('p2')
         updateData(currentP2, 'userId', uid)
         updateData(currentP2, 'name', name)
       }
@@ -185,6 +185,7 @@ $(document).ready(function () {
   })
 
   database.ref().on('value', function (snapshot) {
+    console.log('data change')
     p1GameWins = snapshot.val().currentGame.player1.wins
     p2GameWins = snapshot.val().currentGame.player2.wins
     p1Selection = snapshot.val().currentGame.player1.selection
