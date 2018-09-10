@@ -102,6 +102,7 @@ $(document).ready(function () {
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
       show('.main')
+      console.log(user);
       updateData('users', 'uid', uid)
       updateData('users', 'name', name)
     } else {
@@ -121,6 +122,7 @@ $(document).ready(function () {
     // you have one. Use User.getToken() instead.
   }
 
+  hide('.main')
   updateData(currentP1, 'wins', p1GameWins)
   updateData(currentP2, 'wins', p2GameWins)
   updateData('currentGame', 'ties', ties)
