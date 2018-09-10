@@ -120,6 +120,8 @@ $(document).ready(function () {
     uid = x.uid
     updateData('users', 'uid', uid)
     updateData('users/' + uid, 'name', name)
+    p1Exists()
+    p2Exists()
   }
 
   const p1Exists = () => typeof data.currentGame.player1.userId !== 'undefined'
