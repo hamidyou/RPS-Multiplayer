@@ -109,13 +109,11 @@ $(document).ready(function () {
       show('.main')
       name = user.displayName
       uid = user.uid
-      console.log(user)
-      console.log(uid)
-      console.log(name)
       updateData('users', 'uid', uid)
       updateData('users/' + uid, 'name', name)
       if (player1 === '') {
         updateData(currentP1, 'userId', uid)
+        updateData(currentP1, 'name', name)
       } else if (player2 === '') {
         updateData(currentP2, 'userId', uid)
       }
@@ -185,6 +183,8 @@ $(document).ready(function () {
     p2Selection = snapshot.val().currentGame.player2.selection
     player1 = snapshot.val().currentGame.player1.userId
     player2 = snapshot.val().currentGame.player2.userId
+    setText('#p1Name', snapshot.val().currentGame.player1.name)
+    setText('#p2Name', snapshot.val().currentGame.player1.name)
   }, function (errorObject) {
     console.log('The read failed: ' + errorObject.code)
   })
