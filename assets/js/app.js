@@ -110,15 +110,15 @@ $(document).ready(function () {
       show('.main')
       console.log(user)
       console.log(player2)
-      console.log(player1);
+      console.log(player1)
       name = user.displayName
       uid = user.uid
       updateData('users', 'uid', uid)
       updateData('users/' + uid, 'name', name)
-      if (player1 === '') {
+      if (!player1) {
         updateData(currentP1, 'userId', uid)
         updateData(currentP1, 'name', name)
-      } else if (player2 === '') {
+      } else if (!player2) {
         console.log('p2')
         updateData(currentP2, 'userId', uid)
         updateData(currentP2, 'name', name)
