@@ -114,6 +114,11 @@ $(document).ready(function () {
       console.log(name)
       updateData('users', 'uid', uid)
       updateData('users', 'name', name)
+      if (player1 === '') {
+        updateData(currentP1, 'userId', uid)
+      } else if (player2 === '') {
+        updateData(currentP2, 'userId', uid)
+      }
     } else {
       console.log('no user')
     }
@@ -198,13 +203,6 @@ $(document).ready(function () {
     if (snap.val()) {
       // Add user to the connections list.
       con = connectionsRef.push(true)
-      console.log(con)
-      if (player1 === '') {
-        updateData(currentP1, 'userId', uid)
-      } else if (player2 === '') {
-        updateData(currentP2, 'userId', uid)
-      }
-      // Remove user from the connection list when they disconnect.
       con.onDisconnect().remove()
     }
   })
