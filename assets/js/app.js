@@ -108,6 +108,7 @@ $(document).ready(function () {
     if (user) {
       console.log('here')
       show('.main')
+      console.log(user)
       name = user.displayName
       uid = user.uid
       updateData('users', 'uid', uid)
