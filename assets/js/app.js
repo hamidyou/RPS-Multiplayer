@@ -106,6 +106,7 @@ $(document).ready(function () {
 
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
+      console.log('here')
       show('.main')
       name = user.displayName
       uid = user.uid
@@ -120,6 +121,8 @@ $(document).ready(function () {
       }
     } else {
       console.log('no user')
+      console.log(player1)
+      console.log(player2)
     }
   })
 
