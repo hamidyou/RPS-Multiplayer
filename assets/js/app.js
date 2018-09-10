@@ -116,6 +116,7 @@ $(document).ready(function () {
         updateData(currentP1, 'name', name)
       } else if (player2 === '') {
         updateData(currentP2, 'userId', uid)
+        updateData(currentP2, 'name', name)
       }
     } else {
       console.log('no user')
@@ -148,15 +149,18 @@ $(document).ready(function () {
       updateData(currentP1, 'selection', p1Selection)
       p1Ready = true
       console.log(player1)
+    } else {
+      setText('#p1Selection', 'Wrong Player')
     }
   }
 
   const p2Click = function (x) {
-    if (player2 === con.key) {
+    if (player2 === uid) {
       p2Selection = $(x).val()
       setText('#p2Selection', p2Selection)
       updateData(currentP2, 'selection', p2Selection)
       p2Ready = true
+      console.log(player2);
     } else {
       setText('#p2Selection', 'Wrong Player')
     }
@@ -184,7 +188,7 @@ $(document).ready(function () {
     player1 = snapshot.val().currentGame.player1.userId
     player2 = snapshot.val().currentGame.player2.userId
     setText('#p1Name', snapshot.val().currentGame.player1.name)
-    setText('#p2Name', snapshot.val().currentGame.player1.name)
+    setText('#p2Name', snapshot.val().currentGame.player2.name)
   }, function (errorObject) {
     console.log('The read failed: ' + errorObject.code)
   })
