@@ -57,13 +57,14 @@ $(document).ready(function () {
   const paper = x => x === 'Paper'
   const scissors = x => x === 'Scissors'
   const hide = x => $(x).hide()
+  const show = x => $(x).show()
   const currentP1 = 'currentGame/player1/'
   const currentP2 = 'currentGame/player2/'
   let player1 = ''
   let player2 = ''
   let con = {}
 
-  const setData = function (parent, test, value) {
+  const updateData = function (parent, test, value) {
     var obj = {}
     obj[test] = value
     database.ref(parent).update(obj)
@@ -74,19 +75,19 @@ $(document).ready(function () {
   const draw = function () {
     setText('#results', 'TIE')
     ties++
-    setData('currentGame', 'ties', ties)
+    updateData('currentGame', 'ties', ties)
   }
 
   const p1Win = function () {
     setText('#results', p1Selection + ' beats ' + p2Selection)
     p1GameWins++
-    setData(currentP1, 'wins', p1GameWins)
+    updateData(currentP1, 'wins', p1GameWins)
   }
 
   const p2Win = function () {
     setText('#results', p2Selection + ' beats ' + p1Selection)
     p2GameWins++
-    setData(currentP2, 'wins', p2GameWins)
+    updateData(currentP2, 'wins', p2GameWins)
   }
 
   let p1Selection = ''
@@ -100,29 +101,29 @@ $(document).ready(function () {
   // hide('.main')
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-      console.log('user is signed in')
-      console.log(user)
+      show('.main')
+      updateData('users', 'uid', uid)
+      updateData('users', 'name', name)
     } else {
       console.log('no user')
     }
   })
 
-  const user = firebase.auth().currentUser;
+  const user = firebase.auth().currentUser
   let name = ''
-  let email = ''
   let uid = ''
 
   if (user != null) {
-    name = user.displayName;
-    email = user.email;
-    uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+    name = user.displayName
+    uid = user.uid
+    // The user's ID, unique to the Firebase project. Do NOT use
     // this value to authenticate with your backend server, if
     // you have one. Use User.getToken() instead.
   }
 
-  setData(currentP1, 'wins', p1GameWins)
-  setData(currentP2, 'wins', p2GameWins)
-  setData('currentGame', 'ties', ties)
+  updateData(currentP1, 'wins', p1GameWins)
+  updateData(currentP2, 'wins', p2GameWins)
+  updateData('currentGame', 'ties', ties)
 
   const compare = function (x, y) {
     if (tie(x, y)) {
@@ -139,10 +140,10 @@ $(document).ready(function () {
   }
 
   const p1Click = function (x) {
-    if (player1 === con.key) {
+    if (player1 === uid) {
       p1Selection = $(x).val()
       setText('#p1Selection', p1Selection)
-      setData(currentP1, 'selection', p1Selection)
+      updateData(currentP1, 'selection', p1Selection)
       p1Ready = true
       console.log(player1)
     }
@@ -152,7 +153,7 @@ $(document).ready(function () {
     if (player2 === con.key) {
       p2Selection = $(x).val()
       setText('#p2Selection', p2Selection)
-      setData(currentP2, 'selection', p2Selection)
+      updateData(currentP2, 'selection', p2Selection)
       p2Ready = true
     } else {
       setText('#p2Selection', 'Wrong Player')
@@ -200,9 +201,9 @@ $(document).ready(function () {
       con = connectionsRef.push(true)
       console.log(con)
       if (player1 === '') {
-        setData(currentP1, 'userId', con.key)
+        updateData(currentP1, 'userId', uid)
       } else if (player2 === '') {
-        setData(currentP2, 'userId', con.key)
+        updateData(currentP2, 'userId', uid)
       }
       // Remove user from the connection list when they disconnect.
       con.onDisconnect().remove()
