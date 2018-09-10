@@ -106,8 +106,8 @@ $(document).ready(function () {
     if (x) {
       console.log(data)
       login(x)
-      if (!p1Exists) updateP1()
-      else if (!p2Exists) updateP2()
+      if (!p1Exists()) updateP1()
+      else if (!p2Exists()) updateP2()
       else alert('Please wait your turn')
     } else {
       console.log('no user')
@@ -120,12 +120,10 @@ $(document).ready(function () {
     uid = x.uid
     updateData('users', 'uid', uid)
     updateData('users/' + uid, 'name', name)
-    p1Exists()
-    p2Exists()
   }
 
-  const p1Exists = () => console.log(typeof data.currentGame.player1.userId)
-  const p2Exists = () => typeof data.currentGame.player2.userId
+  const p1Exists = () => typeof data.currentGame.player1.userId === 'undefined'
+  const p2Exists = () => typeof data.currentGame.player2.userId === 'undefined'
 
   const updateP1 = function () {
     updateData(currentP1, 'userId', uid)
