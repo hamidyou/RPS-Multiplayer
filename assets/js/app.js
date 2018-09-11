@@ -85,24 +85,24 @@ $(document).ready(function () {
     // setText('#results', p1Selection + ' beats ' + p2Selection)
     winSelection = p1Selection
     lossSelection = p2Selection
+    updateData('currentGame', 'winSelection', winSelection)
+    updateData('currentGame', 'lossSelection', lossSelection)
     console.log(winSelection)
     console.log(lossSelection);
     p1GameWins++
     updateData(currentP1, 'wins', p1GameWins)
-    updateData('currentGame', 'winSelection', winSelection)
-    updateData('currentGame', 'lossSelection', lossSelection)
   }
 
   const p2Win = function () {
     // setText('#results', p2Selection + ' beats ' + p1Selection)
     winSelection = p2Selection
     lossSelection = p1Selection
+    updateData('currentGame', 'winSelection', winSelection)
+    updateData('currentGame', 'lossSelection', lossSelection)
     console.log(winSelection)
     console.log(lossSelection);
     p2GameWins++
     updateData(currentP2, 'wins', p2GameWins)
-    updateData('currentGame', 'winSelection', winSelection)
-    updateData('currentGame', 'lossSelection', lossSelection)
   }
 
   let p1Selection = ''
