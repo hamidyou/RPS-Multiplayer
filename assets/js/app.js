@@ -191,6 +191,8 @@ $(document).ready(function () {
     data = snapshot.val()
     p1GameWins = data.currentGame.player1.wins
     p2GameWins = data.currentGame.player2.wins
+    ties = data.currentGame.ties
+    setText('#score', p1GameWins + ' - ' + p2GameWins + ' - ' + ties)
     p1Selection = data.currentGame.player1.selection
     p2Selection = data.currentGame.player2.selection
     player1 = data.currentGame.player1.userId
