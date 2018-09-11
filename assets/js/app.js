@@ -148,6 +148,7 @@ $(document).ready(function () {
       draw()
     } else if (or(or(and(rock(x), scissors(y)), and(paper(x), rock(y))), and(scissors(x), paper(y)))) {
       p1Win()
+      setText('#results', p1Selection + ' beats ' + p2Selection)
     } else {
       p2Win()
     }
