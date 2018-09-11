@@ -138,7 +138,9 @@ $(document).ready(function () {
   hide('.main')
   updateData('currentGame', 'ties', ties)
   updateData(currentP2, 'wins', p1GameWins)
+  updateData(currentP2, 'ready', p2Ready)
   updateData(currentP1, 'wins', p1GameWins)
+  updateData(currentP1, 'ready', p1Ready)
 
   const compare = function (x, y) {
     if (tie(x, y)) {
@@ -158,14 +160,14 @@ $(document).ready(function () {
     p1Selection = $(x).val()
     setText('#p1Selection', p1Selection)
     updateData(currentP1, 'selection', p1Selection)
-    p1Ready = true
+    updateData(currentP1, 'ready', true)
   }
 
   const p2Click = function (x) {
     p2Selection = $(x).val()
     setText('#p2Selection', p2Selection)
     updateData(currentP2, 'selection', p2Selection)
-    p2Ready = true
+    updateData(currentP2, 'ready', true)
   }
 
   $(document).on('click', '.p1option', function () {
@@ -183,9 +185,6 @@ $(document).ready(function () {
   })
 
   database.ref().on('value', function (snapshot) {
-    console.log('dataChange')
-    console.log(p1Ready)
-    console.log(p2Ready)
     data = snapshot.val()
     p1GameWins = data.currentGame.player1.wins
     p2GameWins = data.currentGame.player2.wins
@@ -193,6 +192,8 @@ $(document).ready(function () {
     p2Selection = data.currentGame.player2.selection
     player1 = data.currentGame.player1.userId
     player2 = data.currentGame.player2.userId
+    p1Ready = data.currentGame.player1.ready
+    p2Ready = data.currentGame.player2.ready
   }, function (errorObject) {
     console.log('The read failed: ' + errorObject.code)
   })
