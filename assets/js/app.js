@@ -82,19 +82,25 @@ $(document).ready(function () {
   }
 
   const p1Win = function () {
-    setText('#results', p1Selection + ' beats ' + p2Selection)
+    // setText('#results', p1Selection + ' beats ' + p2Selection)
+    winSelection = p1Selection
+    lossSelection = p2Selection
     p1GameWins++
     updateData(currentP1, 'wins', p1GameWins)
   }
 
   const p2Win = function () {
-    setText('#results', p2Selection + ' beats ' + p1Selection)
+    // setText('#results', p2Selection + ' beats ' + p1Selection)
+    winSelection = p2Selection
+    lossSelection = p1Selection
     p2GameWins++
     updateData(currentP2, 'wins', p2GameWins)
   }
 
   let p1Selection = ''
   let p2Selection = ''
+  let winSelection = ''
+  let lossSelection = ''
   let p1Ready = false
   let p2Ready = false
   let p1GameWins = 0
@@ -148,7 +154,6 @@ $(document).ready(function () {
       draw()
     } else if (or(or(and(rock(x), scissors(y)), and(paper(x), rock(y))), and(scissors(x), paper(y)))) {
       p1Win()
-      setText('#results', p1Selection + ' beats ' + p2Selection)
     } else {
       p2Win()
     }
@@ -196,6 +201,7 @@ $(document).ready(function () {
     setText('#score', p1GameWins + ' - ' + p2GameWins + ' - ' + ties)
     p1Selection = data.currentGame.player1.selection
     p2Selection = data.currentGame.player2.selection
+    setText('#results', winSelection + ' beats ' + lossSelection)
     player1 = data.currentGame.player1.userId
     player2 = data.currentGame.player2.userId
     p1Ready = data.currentGame.player1.ready
