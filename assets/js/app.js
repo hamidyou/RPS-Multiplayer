@@ -84,8 +84,8 @@ $(document).ready(function () {
   const p1Win = function () {
     // setText('#results', p1Selection + ' beats ' + p2Selection)
     winSelection = p1Selection
-    lossSelection = p2Selection
     updateData('currentGame', 'winSelection', winSelection)
+    lossSelection = p2Selection
     updateData('currentGame', 'lossSelection', lossSelection)
     console.log(winSelection)
     console.log(lossSelection);
@@ -96,8 +96,8 @@ $(document).ready(function () {
   const p2Win = function () {
     // setText('#results', p2Selection + ' beats ' + p1Selection)
     winSelection = p2Selection
-    lossSelection = p1Selection
     updateData('currentGame', 'winSelection', winSelection)
+    lossSelection = p1Selection
     updateData('currentGame', 'lossSelection', lossSelection)
     console.log(winSelection)
     console.log(lossSelection);
