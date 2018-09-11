@@ -51,6 +51,7 @@ $(document).ready(function () {
   const database = firebase.database()
   const auth = firebase.auth()
   const setText = (elm, str) => $(elm).text(str)
+  const empty = elm => $(elm).empty()
   const tie = (x, y) => x === y
   const and = (x, y) => x && y
   const or = (x, y) => x || y
@@ -151,9 +152,11 @@ $(document).ready(function () {
       p2Win()
     }
     setText('#score', p1GameWins + ' - ' + p2GameWins + ' - ' + ties)
+    empty('#p1Selection')
+    empty('#p2Selection')
     checkMatch(p1GameWins, p2GameWins)
-    p1Ready = false
-    p2Ready = false
+    updateData(currentP1, 'ready', false)
+    updateData(currentP2, 'ready', false)
   }
 
   const p1Click = function (x) {
@@ -208,9 +211,9 @@ $(document).ready(function () {
 
   // When the client's connection state changes...
   connectedRef.on('value', function (snap) {
-  // If they are connected..
+    // If they are connected..
     if (snap.val()) {
-    // Add user to the connections list.
+      // Add user to the connections list.
       con = connectionsRef.push(true)
       con.onDisconnect().remove()
     }
