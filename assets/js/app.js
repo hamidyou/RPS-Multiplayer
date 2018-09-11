@@ -212,6 +212,7 @@ $(document).ready(function () {
     p1Selection = data.currentGame.player1.selection
     p2Selection = data.currentGame.player2.selection
     winSelection = data.currentGame.winSelection
+    setText('#results', winSelection + ' beats ' + lossSelection)
     lossSelection = data.currentGame.lossSelection
     setText('#results', winSelection + ' beats ' + lossSelection)
     player1 = data.currentGame.player1.userId
