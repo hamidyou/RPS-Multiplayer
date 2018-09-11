@@ -168,8 +168,8 @@ $(document).ready(function () {
       p2Win()
     }
     setText('#score', p1GameWins + ' - ' + p2GameWins + ' - ' + ties)
-    empty('#p1Selection')
-    empty('#p2Selection')
+    setText('#p1Selection', '')
+    setText('#p2Selection', '')
     checkMatch(p1GameWins, p2GameWins)
     updateData(currentP1, 'ready', false)
     updateData(currentP2, 'ready', false)
