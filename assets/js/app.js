@@ -67,9 +67,9 @@ $(document).ready(function () {
   let player2 = ''
   let con = {}
 
-  const updateData = function (parent, test, value) {
+  const updateData = function (parent, key, value) {
     var obj = {}
-    obj[test] = value
+    obj[key] = value
     database.ref(parent).update(obj)
   }
 
