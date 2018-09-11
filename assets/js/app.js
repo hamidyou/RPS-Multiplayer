@@ -88,7 +88,7 @@ $(document).ready(function () {
     p1GameWins++
     updateData(currentP1, 'wins', p1GameWins)
     updateData('currentGame', 'winSelection', winSelection)
-    updateData('currentGame', 'lossSelection', winSelection)
+    updateData('currentGame', 'lossSelection', lossSelection)
   }
 
   const p2Win = function () {
@@ -97,6 +97,8 @@ $(document).ready(function () {
     lossSelection = p1Selection
     p2GameWins++
     updateData(currentP2, 'wins', p2GameWins)
+    updateData('currentGame', 'winSelection', winSelection)
+    updateData('currentGame', 'lossSelection', lossSelection)
   }
 
   let p1Selection = ''
