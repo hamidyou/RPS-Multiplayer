@@ -150,6 +150,8 @@ $(document).ready(function () {
   updateData(currentP2, 'ready', p2Ready)
   updateData(currentP1, 'wins', p1GameWins)
   updateData(currentP1, 'ready', p1Ready)
+  updateData('currentGame', 'winSelection', winSelection)
+  updateData('currentGame', 'lossSelection', lossSelection)
 
   const compare = function (x, y) {
     if (tie(x, y)) {
