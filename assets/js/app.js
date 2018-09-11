@@ -87,6 +87,8 @@ $(document).ready(function () {
     lossSelection = p2Selection
     p1GameWins++
     updateData(currentP1, 'wins', p1GameWins)
+    updateData('currentGame', 'winSelection', winSelection)
+    updateData('currentGame', 'lossSelection', winSelection)
   }
 
   const p2Win = function () {
@@ -201,6 +203,8 @@ $(document).ready(function () {
     setText('#score', p1GameWins + ' - ' + p2GameWins + ' - ' + ties)
     p1Selection = data.currentGame.player1.selection
     p2Selection = data.currentGame.player2.selection
+    winSelection = data.currentGame.winSelection
+    lossSelection = data.currentGame.lossSelection
     setText('#results', winSelection + ' beats ' + lossSelection)
     player1 = data.currentGame.player1.userId
     player2 = data.currentGame.player2.userId
