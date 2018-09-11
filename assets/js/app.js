@@ -73,7 +73,13 @@ $(document).ready(function () {
     database.ref(parent).update(obj)
   }
 
-  const checkMatch = (x, y) => or(x === 3, y === 3) ? setText('#results', 'GAME OVER') : 0
+  const checkMatch = function (x, y) {
+    console.log(x)
+    console.log(y)
+    if (or(x === 3, y === 3)) {
+      setText('#results', 'GAME OVER')
+    }
+  }
 
   const draw = function () {
     setText('#results', 'TIE')
@@ -168,8 +174,6 @@ $(document).ready(function () {
       p2Win()
     }
     setText('#score', p1GameWins + ' - ' + p2GameWins + ' - ' + ties)
-    setText('#p1Selection', '')
-    setText('#p2Selection', '')
     checkMatch(p1GameWins, p2GameWins)
     updateData(currentP1, 'ready', false)
     updateData(currentP2, 'ready', false)
