@@ -173,6 +173,7 @@ $(document).ready(function () {
   })
 
   const compare = function (x, y) {
+    console.log(data)
     if (tie(x, y)) {
       draw()
     } else if (or(or(and(rock(x), scissors(y)), and(paper(x), rock(y))), and(scissors(x), paper(y)))) {
