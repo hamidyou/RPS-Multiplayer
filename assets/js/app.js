@@ -133,7 +133,7 @@ $(document).ready(function () {
     obj[key] = value
     database.ref(parent).update(obj)
   }
-  
+
   const initialize = function () {
     tiesRef.set(ties)
     p1WinsRef.set(p1Wins)
@@ -143,7 +143,7 @@ $(document).ready(function () {
     winSelectionRef.set(winSelection)
     lossSelectionRef.set(lossSelection)
   }
-  
+
   const p1Click = function (x) {
     p1Selection = $(x).val()
     setText('#p1Selection', p1Selection)
@@ -177,7 +177,7 @@ $(document).ready(function () {
       draw()
     } else if (or(or(and(rock(x), scissors(y)), and(paper(x), rock(y))), and(scissors(x), paper(y)))) {
       p1Win()
-      setText('#results', data.winSelection + ' beats ' + data.lossSelection)
+      console.log(data)
     } else {
       p2Win()
     }
@@ -219,7 +219,7 @@ $(document).ready(function () {
     updateData('currentGame', 'ties', ties)
   }
 
-  
+
 
   database.ref().on('value', function (snapshot) {
     data = snapshot.val()
@@ -239,8 +239,8 @@ $(document).ready(function () {
     // p2Ready = data.currentGame.player2.ready
   }, function (errorObject) {
     console.log('The read failed: ' + errorObject.code)
-    })
-  
+  })
+
   hide('.main')
   initialize()
 
