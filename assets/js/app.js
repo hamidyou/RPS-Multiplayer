@@ -109,7 +109,9 @@ $(document).ready(function () {
     name = x.displayName
     uid = x.uid
     uidRef.set(uid)
-    nameRef.set(name)
+    uidRef.child(uid).set({
+      name: name
+    })
   }
 
   const updateP1 = function () {
