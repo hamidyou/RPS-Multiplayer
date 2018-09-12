@@ -164,17 +164,17 @@ $(document).ready(function () {
 
   $(document).on('click', '.p1option', function () {
     p1Click($(this))
-    console.log(data);
-    if (data.p2ReadyRef) {
+    console.log(data.p2ReadyRef);
+    if (data.p2ReadyRef === true) {
       compare(data.p1SelectionRef, data.p2SelectionRef)
     }
   })
 
   $(document).on('click', '.p2option', function () {
     p2Click($(this))
-    console.log(data);
-    if (data.p1ReadyRef) {
-      compare(data.p1Selection, data.p2Selection)
+    console.log(data.p1ReadyRef);
+    if (data.p1ReadyRef === true) {
+      compare(data.p1SelectionRef, data.p2SelectionRef)
     }
   })
 
