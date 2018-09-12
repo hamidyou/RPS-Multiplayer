@@ -1,4 +1,22 @@
 $(document).ready(function () {
+  // const auth = firebase.auth()
+  const setText = (elm, str) => $(elm).text(str)
+  // const empty = elm => $(elm).empty()
+  const tie = (x, y) => x === y
+  const and = (x, y) => x && y
+  const or = (x, y) => x || y
+  const rock = x => x === 'Rock'
+  const paper = x => x === 'Paper'
+  const scissors = x => x === 'Scissors'
+  const hide = x => $(x).hide()
+  const show = x => $(x).show()
+  const currentP1 = 'currentGame/player1/'
+  const currentP2 = 'currentGame/player2/'
+  let data = {}
+  let player1 = ''
+  let player2 = ''
+  let con = {}
+
   // Initialize the FirebaseUI Widget using Firebase.
   const ui = new firebaseui.auth.AuthUI(firebase.auth())
 
@@ -45,27 +63,55 @@ $(document).ready(function () {
   // The start method will wait until the DOM is loaded.
   ui.start('#firebaseui-auth-container', uiConfig)
 
-  console.log('authenticated')
-  console.log(firebase.User)
-
   const database = firebase.database()
-  const auth = firebase.auth()
-  const setText = (elm, str) => $(elm).text(str)
-  const empty = elm => $(elm).empty()
-  const tie = (x, y) => x === y
-  const and = (x, y) => x && y
-  const or = (x, y) => x || y
-  const rock = x => x === 'Rock'
-  const paper = x => x === 'Paper'
-  const scissors = x => x === 'Scissors'
-  const hide = x => $(x).hide()
-  const show = x => $(x).show()
-  const currentP1 = 'currentGame/player1/'
-  const currentP2 = 'currentGame/player2/'
-  let data = {}
-  let player1 = ''
-  let player2 = ''
-  let con = {}
+  const rootRef = databse.ref()
+  const currentGameRef = rootRef.child('currentGame')
+  const player1ref = currentGameRef.child('player1')
+  const p1WinsRef = player1ref.child('wins')
+  const p1ReadyRef = player1ref.child('ready')
+  const p1NameRef = player1ref.child('name')
+  const p1SelectionRef = player1ref.child('selection')
+  const p1userIdRef = player1ref.child('userId')
+  const player2ref = currentGameRef.child('player2')
+  const p2WinsRef = player2ref.child('wins')
+  const p2ReadyRef = player2ref.child('ready')
+  const p2NameRef = player2ref.child('name')
+  const p2SelectionRef = player2ref.child('selection')
+  const p2userIdRef = player2ref.child('userId')
+
+
+  firebase.auth().onAuthStateChanged(function (x) {
+    if (x) {
+      login(x)
+      if (typeof data.currentGame.player1.userId === 'undefined') updateP1()
+      else if (typeof data.currentGame.player2.userId === 'undefined') updateP2()
+      else alert('Please wait your turn')
+    } else {
+      console.log('no user')
+    }
+  })
+
+  const login = function (x) {
+    show('.main')
+    name = x.displayName
+    uid = x.uid
+    p1userIdRef.set(uid)
+    p1NameRef.set(name)
+  }
+
+  const updateP1 = function () {
+    updateData(currentP1, 'userId', uid)
+    updateData(currentP1, 'name', name)
+    setText('#p1Name', data.currentGame.player1.name)
+    hide('#p2hide')
+  }
+
+  const updateP2 = function () {
+    updateData(currentP2, 'userId', uid)
+    updateData(currentP2, 'name', name)
+    setText('#p2Name', data.currentGame.player2.name)
+    hide('#p1hide')
+  }
 
   const updateData = function (parent, key, value) {
     var obj = {}
@@ -73,9 +119,16 @@ $(document).ready(function () {
     database.ref(parent).update(obj)
   }
 
+  hide('.main')
+  updateData('currentGame', 'ties', ties)
+  updateData(currentP2, 'wins', p1GameWins)
+  updateData(currentP2, 'ready', p2Ready)
+  updateData(currentP1, 'wins', p1GameWins)
+  updateData(currentP1, 'ready', p1Ready)
+  updateData('currentGame', 'winSelection', winSelection)
+  updateData('currentGame', 'lossSelection', lossSelection)
+
   const checkMatch = function (x, y) {
-    console.log(x)
-    console.log(y)
     if (or(x === 3, y === 3)) {
       setText('#results', 'GAME OVER')
     }
@@ -93,8 +146,6 @@ $(document).ready(function () {
     updateData('currentGame', 'winSelection', winSelection)
     lossSelection = p2Selection
     updateData('currentGame', 'lossSelection', lossSelection)
-    console.log(winSelection)
-    console.log(lossSelection);
     p1GameWins++
     updateData(currentP1, 'wins', p1GameWins)
   }
@@ -106,7 +157,7 @@ $(document).ready(function () {
     lossSelection = p1Selection
     updateData('currentGame', 'lossSelection', lossSelection)
     console.log(winSelection)
-    console.log(lossSelection);
+    console.log(lossSelection)
     p2GameWins++
     updateData(currentP2, 'wins', p2GameWins)
   }
@@ -123,47 +174,6 @@ $(document).ready(function () {
   let name = ''
   let uid = ''
 
-  firebase.auth().onAuthStateChanged(function (x) {
-    if (x) {
-      login(x)
-      if (typeof data.currentGame.player1.userId === 'undefined') updateP1()
-      else if (typeof data.currentGame.player2.userId === 'undefined') updateP2()
-      else alert('Please wait your turn')
-    } else {
-      console.log('no user')
-    }
-  })
-
-  const login = function (x) {
-    show('.main')
-    name = x.displayName
-    uid = x.uid
-    updateData('users', 'uid', uid)
-    updateData('users/' + uid, 'name', name)
-  }
-
-  const updateP1 = function () {
-    updateData(currentP1, 'userId', uid)
-    updateData(currentP1, 'name', name)
-    setText('#p1Name', data.currentGame.player1.name)
-    hide('#p2hide')
-  }
-
-  const updateP2 = function () {
-    updateData(currentP2, 'userId', uid)
-    updateData(currentP2, 'name', name)
-    setText('#p2Name', data.currentGame.player2.name)
-    hide('#p1hide')
-  }
-
-  hide('.main')
-  updateData('currentGame', 'ties', ties)
-  updateData(currentP2, 'wins', p1GameWins)
-  updateData(currentP2, 'ready', p2Ready)
-  updateData(currentP1, 'wins', p1GameWins)
-  updateData(currentP1, 'ready', p1Ready)
-  updateData('currentGame', 'winSelection', winSelection)
-  updateData('currentGame', 'lossSelection', lossSelection)
 
   const compare = function (x, y) {
     if (tie(x, y)) {
