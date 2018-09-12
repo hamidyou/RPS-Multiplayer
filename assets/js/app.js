@@ -110,6 +110,7 @@ $(document).ready(function () {
   }
 
   const updateP1 = function () {
+    console.log('update P1');
     updateData(currentP1, 'userId', uid)
     updateData(currentP1, 'name', name)
     setText('#p1Name', data.currentGame.player1.name)
@@ -117,6 +118,7 @@ $(document).ready(function () {
   }
 
   const updateP2 = function () {
+    console.log('updateP2');
     updateData(currentP2, 'userId', uid)
     updateData(currentP2, 'name', name)
     setText('#p2Name', data.currentGame.player2.name)
