@@ -16,7 +16,7 @@ $(document).ready(function () {
   let player1 = ''
   let player2 = ''
   let con = {}
-  let p1Selection = ''
+    let p1Selection = ''
   let p2Selection = ''
   let winSelection = ''
   let lossSelection = ''
@@ -76,6 +76,9 @@ $(document).ready(function () {
 
   const database = firebase.database()
   const rootRef = database.ref()
+  const usersRef = rootRef.child('users')
+  const uidRef = usersRef.child()
+  const nameRef = uidRef.child().child('name')
   const currentGameRef = rootRef.child('currentGame')
   const player1ref = currentGameRef.child('player1')
   const p1WinsRef = player1ref.child('wins')
@@ -105,12 +108,11 @@ $(document).ready(function () {
     show('.main')
     name = x.displayName
     uid = x.uid
-    p1userIdRef.set(uid)
-    p1NameRef.set(name)
+    uidRef.set(uid)
+    nameRef.set(name)
   }
 
   const updateP1 = function () {
-    console.log('update P1');
     updateData(currentP1, 'userId', uid)
     updateData(currentP1, 'name', name)
     setText('#p1Name', data.currentGame.player1.name)
@@ -118,7 +120,6 @@ $(document).ready(function () {
   }
 
   const updateP2 = function () {
-    console.log('updateP2');
     updateData(currentP2, 'userId', uid)
     updateData(currentP2, 'name', name)
     setText('#p2Name', data.currentGame.player2.name)
@@ -173,6 +174,8 @@ $(document).ready(function () {
     p2GameWins++
     updateData(currentP2, 'wins', p2GameWins)
   }
+
+
 
   const compare = function (x, y) {
     if (tie(x, y)) {
