@@ -120,7 +120,7 @@ $(document).ready(function () {
 
   const updateP2 = function () {
     p2userIdRef.set(uid)
-    p1NameRef.set(name)
+    p2NameRef.set(name)
     setText('#p2Name', data.currentGame.player2.name)
     hide('#p1hide')
   }
