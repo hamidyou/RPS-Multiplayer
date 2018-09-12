@@ -22,8 +22,8 @@ $(document).ready(function () {
   let lossSelection = ''
   let p1Ready = false
   let p2Ready = false
-  let p1GameWins = 0
-  let p2GameWins = 0
+  let p1Wins = 0
+  let p2Wins = 0
   let ties = 0
   let name = ''
   let uid = ''
@@ -90,6 +90,9 @@ $(document).ready(function () {
   const p2NameRef = player2ref.child('name')
   const p2SelectionRef = player2ref.child('selection')
   const p2userIdRef = player2ref.child('userId')
+  const tiesRef = currentGameRef.child('ties')
+  const winSelectionRef = currentGameRef.child('winSelection')
+  const lossSelectionRef = currentGameRef.child('lossSelection')
 
   firebase.auth().onAuthStateChanged(function (x) {
     if (x) {
@@ -130,15 +133,79 @@ $(document).ready(function () {
     obj[key] = value
     database.ref(parent).update(obj)
   }
+  
+  const initialize = function () {
+    tiesRef.set(ties)
+    p1WinsRef.set(p1Wins)
+    p1ReadyRef.set(p1Ready)
+    p2WinsRef.set(p2Wins)
+    p2ReadyRef.set(p2Ready)
+    winSelectionRef.set(winSelection)
+    lossSelectionRef.set(lossSelection)
+  }
+  
+  const p1Click = function (x) {
+    p1Selection = $(x).val()
+    setText('#p1Selection', p1Selection)
+    p1SelectionRef.set(p1Selection)
+    p1ReadyRef.set(p1Ready)
+  }
 
-  hide('.main')
-  updateData('currentGame', 'ties', ties)
-  updateData(currentP2, 'wins', p1GameWins)
-  updateData(currentP2, 'ready', p2Ready)
-  updateData(currentP1, 'wins', p1GameWins)
-  updateData(currentP1, 'ready', p1Ready)
-  updateData('currentGame', 'winSelection', winSelection)
-  updateData('currentGame', 'lossSelection', lossSelection)
+  const p2Click = function (x) {
+    p2Selection = $(x).val()
+    setText('#p2Selection', p2Selection)
+    p2SelectionRef.set(p2Selection)
+    p2ReadyRef.set(p2Ready)
+  }
+
+  $(document).on('click', '.p1option', function () {
+    p1Click($(this))
+    if (data.p2Ready) {
+      compare(data.p1SelectionRef, data.p2SelectionRef)
+    }
+  })
+
+  $(document).on('click', '.p2option', function () {
+    p2Click($(this))
+    if (data.p1Ready) {
+      compare(data.p1Selection, data.p2Selection)
+    }
+  })
+
+  const compare = function (x, y) {
+    if (tie(x, y)) {
+      draw()
+    } else if (or(or(and(rock(x), scissors(y)), and(paper(x), rock(y))), and(scissors(x), paper(y)))) {
+      p1Win()
+      setText('#results', data.winSelection + ' beats ' + data.lossSelection)
+    } else {
+      p2Win()
+    }
+    setText('#score', data.p1WinsRef + ' - ' + data.p2WinsRef + ' - ' + data.tiesRef)
+    checkMatch(p1Wins, p2Wins)
+    updateData(currentP1, 'ready', false)
+    updateData(currentP2, 'ready', false)
+  }
+
+  const p1Win = function () {
+    // setText('#results', p1Selection + ' beats ' + p2Selection)
+    winSelection = p1Selection
+    winSelectionRef.set(winSelection)
+    lossSelection = p2Selection
+    lossSelectionRef.set(lossSelection)
+    p1Wins++
+    p1WinsRef.set(p1Wins)
+  }
+
+  const p2Win = function () {
+    // setText('#results', p2Selection + ' beats ' + p1Selection)
+    winSelection = p2Selection
+    winSelectionRef.set(winSelection)
+    lossSelection = p1Selection
+    lossSelectionRef.set(lossSelection)
+    p2Wins++
+    p2WinsRef.set(p2WinsRef)
+  }
 
   const checkMatch = function (x, y) {
     if (or(x === 3, y === 3)) {
@@ -152,91 +219,30 @@ $(document).ready(function () {
     updateData('currentGame', 'ties', ties)
   }
 
-  const p1Win = function () {
-    // setText('#results', p1Selection + ' beats ' + p2Selection)
-    winSelection = p1Selection
-    updateData('currentGame', 'winSelection', winSelection)
-    lossSelection = p2Selection
-    updateData('currentGame', 'lossSelection', lossSelection)
-    p1GameWins++
-    updateData(currentP1, 'wins', p1GameWins)
-  }
-
-  const p2Win = function () {
-    // setText('#results', p2Selection + ' beats ' + p1Selection)
-    winSelection = p2Selection
-    updateData('currentGame', 'winSelection', winSelection)
-    lossSelection = p1Selection
-    updateData('currentGame', 'lossSelection', lossSelection)
-    console.log(winSelection)
-    console.log(lossSelection)
-    p2GameWins++
-    updateData(currentP2, 'wins', p2GameWins)
-  }
-
-
-
-  const compare = function (x, y) {
-    if (tie(x, y)) {
-      draw()
-    } else if (or(or(and(rock(x), scissors(y)), and(paper(x), rock(y))), and(scissors(x), paper(y)))) {
-      p1Win()
-    } else {
-      p2Win()
-    }
-    setText('#score', p1GameWins + ' - ' + p2GameWins + ' - ' + ties)
-    checkMatch(p1GameWins, p2GameWins)
-    updateData(currentP1, 'ready', false)
-    updateData(currentP2, 'ready', false)
-  }
-
-  const p1Click = function (x) {
-    p1Selection = $(x).val()
-    setText('#p1Selection', p1Selection)
-    updateData(currentP1, 'selection', p1Selection)
-    updateData(currentP1, 'ready', true)
-  }
-
-  const p2Click = function (x) {
-    p2Selection = $(x).val()
-    setText('#p2Selection', p2Selection)
-    updateData(currentP2, 'selection', p2Selection)
-    updateData(currentP2, 'ready', true)
-  }
-
-  $(document).on('click', '.p1option', function () {
-    p1Click($(this))
-    if (p2Ready) {
-      compare(p1Selection, p2Selection)
-    }
-  })
-
-  $(document).on('click', '.p2option', function () {
-    p2Click($(this))
-    if (p1Ready) {
-      compare(p1Selection, p2Selection)
-    }
-  })
+  
 
   database.ref().on('value', function (snapshot) {
     data = snapshot.val()
-    p1GameWins = data.currentGame.player1.wins
-    p2GameWins = data.currentGame.player2.wins
-    ties = data.currentGame.ties
-    setText('#score', p1GameWins + ' - ' + p2GameWins + ' - ' + ties)
-    p1Selection = data.currentGame.player1.selection
-    p2Selection = data.currentGame.player2.selection
-    winSelection = data.currentGame.winSelection
-    setText('#results', winSelection + ' beats ' + lossSelection)
-    lossSelection = data.currentGame.lossSelection
-    setText('#results', winSelection + ' beats ' + lossSelection)
-    player1 = data.currentGame.player1.userId
-    player2 = data.currentGame.player2.userId
-    p1Ready = data.currentGame.player1.ready
-    p2Ready = data.currentGame.player2.ready
+    // p1Wins = data.currentGame.player1.wins
+    // p2Wins = data.currentGame.player2.wins
+    // ties = data.currentGame.ties
+    // setText('#score', p1Wins + ' - ' + p2Wins + ' - ' + ties)
+    // p1Selection = data.currentGame.player1.selection
+    // p2Selection = data.currentGame.player2.selection
+    // winSelection = data.currentGame.winSelection
+    // setText('#results', winSelection + ' beats ' + lossSelection)
+    // lossSelection = data.currentGame.lossSelection
+    // setText('#results', winSelection + ' beats ' + lossSelection)
+    // player1 = data.currentGame.player1.userId
+    // player2 = data.currentGame.player2.userId
+    // p1Ready = data.currentGame.player1.ready
+    // p2Ready = data.currentGame.player2.ready
   }, function (errorObject) {
     console.log('The read failed: ' + errorObject.code)
-  })
+    })
+  
+  hide('.main')
+  initialize()
 
   // Store Connections
   const connectionsRef = database.ref('/connections')
