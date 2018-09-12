@@ -64,7 +64,7 @@ $(document).ready(function () {
   ui.start('#firebaseui-auth-container', uiConfig)
 
   const database = firebase.database()
-  const rootRef = databse.ref()
+  const rootRef = database.ref()
   const currentGameRef = rootRef.child('currentGame')
   const player1ref = currentGameRef.child('player1')
   const p1WinsRef = player1ref.child('wins')
