@@ -16,7 +16,7 @@ $(document).ready(function () {
   let player1 = ''
   let player2 = ''
   let con = {}
-    let p1Selection = ''
+  let p1Selection = ''
   let p2Selection = ''
   let winSelection = ''
   let lossSelection = ''
@@ -112,15 +112,15 @@ $(document).ready(function () {
   }
 
   const updateP1 = function () {
-    updateData(currentP1, 'userId', uid)
-    updateData(currentP1, 'name', name)
+    p1userIdRef.set(uid)
+    p1NameRef.set(name)
     setText('#p1Name', data.currentGame.player1.name)
     hide('#p2hide')
   }
 
   const updateP2 = function () {
-    updateData(currentP2, 'userId', uid)
-    updateData(currentP2, 'name', name)
+    p2userIdRef.set(uid)
+    p1NameRef.set(name)
     setText('#p2Name', data.currentGame.player2.name)
     hide('#p1hide')
   }
