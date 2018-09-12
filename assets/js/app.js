@@ -93,6 +93,9 @@ $(document).ready(function () {
   const tiesRef = currentGameRef.child('ties')
   const winSelectionRef = currentGameRef.child('winSelection')
   const lossSelectionRef = currentGameRef.child('lossSelection')
+  const currentGameData = data.currentGame
+  const player1Data = currentGameData.player1
+  const player2Data = currentGameData.player2
 
   firebase.auth().onAuthStateChanged(function (x) {
     if (x) {
@@ -164,17 +167,17 @@ $(document).ready(function () {
 
   $(document).on('click', '.p1option', function () {
     p1Click($(this))
-    console.log(data.p2ReadyRef);
-    if (data.p2ReadyRef === true) {
-      compare(data.p1SelectionRef, data.p2SelectionRef)
+    console.log(player2Data.ready);
+    if (player2Data.ready) {
+      compare(player1Data.selection, player2Data.selection)
     }
   })
 
   $(document).on('click', '.p2option', function () {
     p2Click($(this))
-    console.log(data.p1ReadyRef);
-    if (data.p1ReadyRef === true) {
-      compare(data.p1SelectionRef, data.p2SelectionRef)
+    console.log(player1Data.ready);
+    if (player1Data.ready) {
+      compare(player1Data.selection, player2Data.selection)
     }
   })
 
