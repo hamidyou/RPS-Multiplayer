@@ -164,6 +164,7 @@ $(document).ready(function () {
 
   $(document).on('click', '.p1option', function () {
     p1Click($(this))
+    console.log(data);
     if (data.p2ReadyRef) {
       compare(data.p1SelectionRef, data.p2SelectionRef)
     }
@@ -171,6 +172,7 @@ $(document).ready(function () {
 
   $(document).on('click', '.p2option', function () {
     p2Click($(this))
+    console.log(data);
     if (data.p1ReadyRef) {
       compare(data.p1Selection, data.p2Selection)
     }
@@ -228,7 +230,6 @@ $(document).ready(function () {
 
   database.ref().on('value', function (snapshot) {
     data = snapshot.val()
-    console.log(data);
     // p1Wins = data.currentGame.player1.wins
     // p2Wins = data.currentGame.player2.wins
     // ties = data.currentGame.ties
