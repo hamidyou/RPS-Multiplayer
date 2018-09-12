@@ -188,7 +188,7 @@ $(document).ready(function () {
     } else {
       p2Win()
     }
-    setText('#score', data.p1WinsRef + ' - ' + data.p2WinsRef + ' - ' + data.tiesRef)
+    setText('#score', data.currentGame.player1.p1WinsRef + ' - ' + data.currentGame.player1.p2WinsRef + ' - ' + data.tiesRef)
     checkMatch(p1Wins, p2Wins)
     updateData(currentP1, 'ready', false)
     updateData(currentP2, 'ready', false)
