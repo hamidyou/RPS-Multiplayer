@@ -16,6 +16,17 @@ $(document).ready(function () {
   let player1 = ''
   let player2 = ''
   let con = {}
+  let p1Selection = ''
+  let p2Selection = ''
+  let winSelection = ''
+  let lossSelection = ''
+  let p1Ready = false
+  let p2Ready = false
+  let p1GameWins = 0
+  let p2GameWins = 0
+  let ties = 0
+  let name = ''
+  let uid = ''
 
   // Initialize the FirebaseUI Widget using Firebase.
   const ui = new firebaseui.auth.AuthUI(firebase.auth())
@@ -78,7 +89,6 @@ $(document).ready(function () {
   const p2NameRef = player2ref.child('name')
   const p2SelectionRef = player2ref.child('selection')
   const p2userIdRef = player2ref.child('userId')
-
 
   firebase.auth().onAuthStateChanged(function (x) {
     if (x) {
@@ -161,19 +171,6 @@ $(document).ready(function () {
     p2GameWins++
     updateData(currentP2, 'wins', p2GameWins)
   }
-
-  let p1Selection = ''
-  let p2Selection = ''
-  let winSelection = ''
-  let lossSelection = ''
-  let p1Ready = false
-  let p2Ready = false
-  let p1GameWins = 0
-  let p2GameWins = 0
-  let ties = 0
-  let name = ''
-  let uid = ''
-
 
   const compare = function (x, y) {
     if (tie(x, y)) {
