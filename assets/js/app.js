@@ -77,8 +77,6 @@ $(document).ready(function () {
   const database = firebase.database()
   const rootRef = database.ref()
   const usersRef = rootRef.child('users')
-  const uidRef = usersRef.child()
-  const nameRef = uidRef.child().child('name')
   const currentGameRef = rootRef.child('currentGame')
   const player1ref = currentGameRef.child('player1')
   const p1WinsRef = player1ref.child('wins')
@@ -108,8 +106,7 @@ $(document).ready(function () {
     show('.main')
     name = x.displayName
     uid = x.uid
-    uidRef.set(uid)
-    uidRef.child(uid).set({
+    usersRef.child(uid).set({
       name: name
     })
   }
