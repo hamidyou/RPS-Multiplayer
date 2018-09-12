@@ -160,14 +160,14 @@ $(document).ready(function () {
 
   $(document).on('click', '.p1option', function () {
     p1Click($(this))
-    if (data.p2Ready) {
+    if (data.p2ReadyRef) {
       compare(data.p1SelectionRef, data.p2SelectionRef)
     }
   })
 
   $(document).on('click', '.p2option', function () {
     p2Click($(this))
-    if (data.p1Ready) {
+    if (data.p1ReadyRef) {
       compare(data.p1Selection, data.p2Selection)
     }
   })
