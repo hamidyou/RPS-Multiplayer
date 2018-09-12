@@ -228,6 +228,7 @@ $(document).ready(function () {
 
   database.ref().on('value', function (snapshot) {
     data = snapshot.val()
+    console.log(data);
     // p1Wins = data.currentGame.player1.wins
     // p2Wins = data.currentGame.player2.wins
     // ties = data.currentGame.ties
