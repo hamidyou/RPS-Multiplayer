@@ -150,6 +150,7 @@ $(document).ready(function () {
     setText('#p1Selection', p1Selection)
     p1SelectionRef.set(p1Selection)
     p1ReadyRef.set(p1Ready)
+    console.log(data);
   }
 
   const p2Click = function (x) {
@@ -158,6 +159,7 @@ $(document).ready(function () {
     setText('#p2Selection', p2Selection)
     p2SelectionRef.set(p2Selection)
     p2ReadyRef.set(p2Ready)
+    console.log(data);
   }
 
   $(document).on('click', '.p1option', function () {
