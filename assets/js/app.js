@@ -166,8 +166,6 @@ $(document).ready(function () {
     p1Click($(this))
     console.log(data.currentGame.player2.ready);
     if (data.currentGame.player2.ready) {
-      console.log(data.currentGame.player1.selection);
-      console.log(data.currentGame.player2.selection);
       compare(data.currentGame.player1.selection, data.currentGame.player2.selection)
     }
   })
@@ -176,16 +174,20 @@ $(document).ready(function () {
     p2Click($(this))
     console.log(data.currentGame.player1.ready)
     if (data.currentGame.player1.ready) {
-      console.log(data)
+      console.log(data.currentGame.player1.selection);
+      console.log(data.currentGame.player2.selection);
       compare(data.currentGame.player1.selection, data.currentGame.player2.selection)
     }
   })
 
   const compare = function (x, y) {
+    console.log(x);
+    console.log(y);
     if (tie(x, y)) {
       draw()
     } else if (or(or(and(rock(x), scissors(y)), and(paper(x), rock(y))), and(scissors(x), paper(y)))) {
       p1Win()
+      console.log('p1Won');
     } else {
       p2Win()
       console.log('p2Won');
