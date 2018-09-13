@@ -194,7 +194,7 @@ $(document).ready(function () {
     }
     console.log(data.currentGame.player1.wins)
     console.log(data.currentGame.player2.wins)
-    setText('#score', data.currentGame.player1.wins + ' - ' + data.currentGame.player1.wins + ' - ' + data.currentGame.wins)
+    setText('#score', data.currentGame.player1.wins + ' - ' + data.currentGame.player2.wins + ' - ' + data.currentGame.ties)
     checkMatch(p1Wins, p2Wins)
     updateData(currentP1, 'ready', false)
     updateData(currentP2, 'ready', false)
