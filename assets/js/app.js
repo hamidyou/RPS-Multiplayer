@@ -217,7 +217,7 @@ $(document).ready(function () {
     lossSelection = p1Selection
     lossSelectionRef.set(lossSelection)
     p2Wins++
-    p2WinsRef.set(p2WinsRef)
+    p2WinsRef.set(p2Wins)
   }
 
   const checkMatch = function (x, y) {
