@@ -166,6 +166,8 @@ $(document).ready(function () {
     p1Click($(this))
     console.log(data.currentGame.player2.ready);
     if (data.currentGame.player2.ready) {
+      console.log(data.currentGame.player1.selection);
+      console.log(data.currentGame.player2.selection);
       compare(data.currentGame.player1.selection, data.currentGame.player2.selection)
     }
   })
@@ -180,8 +182,6 @@ $(document).ready(function () {
   })
 
   const compare = function (x, y) {
-    console.log(data.currentGame.player1.wins)
-    console.log(data.currentGame.player2.wins)
     if (tie(x, y)) {
       draw()
     } else if (or(or(and(rock(x), scissors(y)), and(paper(x), rock(y))), and(scissors(x), paper(y)))) {
@@ -190,6 +190,8 @@ $(document).ready(function () {
       p2Win()
       console.log('p2Won');
     }
+    console.log(data.currentGame.player1.wins)
+    console.log(data.currentGame.player2.wins)
     setText('#score', data.currentGame.player1.wins + ' - ' + data.currentGame.player1.wins + ' - ' + data.currentGame.wins)
     checkMatch(p1Wins, p2Wins)
     updateData(currentP1, 'ready', false)
