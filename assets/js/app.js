@@ -180,13 +180,13 @@ $(document).ready(function () {
     }
   })
 
-  const updateScoreDisplay = function () {
-    setText('#score', data.currentGame.player1.wins + ' - ' + data.currentGame.player2.wins + ' - ' + data.currentGame.ties)
+  const updateScoreDisplay = function (x, y, z) {
+    setText('#score', x + ' - ' + y + ' - ' + z)
   }
 
-  p1WinsRef.on('value', updateScoreDisplay)
-  p2WinsRef.on('value', updateScoreDisplay)
-  tiesRef.on('value', updateScoreDisplay)
+  p1WinsRef.on('value', updateScoreDisplay(data.currentGame.player1.wins, data.currentGame.player2.wins, data.currentGame.ties))
+  p2WinsRef.on('value', (data.currentGame.player1.wins, data.currentGame.player2.wins, data.currentGame.ties))
+  tiesRef.on('value', (data.currentGame.player1.wins, data.currentGame.player2.wins, data.currentGame.ties))
 
   const compare = function (x, y) {
     console.log(x);
