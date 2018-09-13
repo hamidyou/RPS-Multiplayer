@@ -180,6 +180,13 @@ $(document).ready(function () {
     }
   })
 
+  const updateScoreDisplay = function () {
+    setText('#score', data.currentGame.player1.wins + ' - ' + data.currentGame.player2.wins + ' - ' + data.currentGame.ties)
+
+  p1WinsRef.on('value', updateScoreDisplay)
+  p2WinsRef.on('value', updateScoreDisplay)
+  tiesRef.on('value', updateScoreDisplay)
+
   const compare = function (x, y) {
     console.log(x);
     console.log(y);
@@ -192,12 +199,9 @@ $(document).ready(function () {
       p2Win()
       console.log('p2Won');
     }
-    console.log(data.currentGame.player1.wins)
-    console.log(data.currentGame.player2.wins)
-    setText('#score', data.currentGame.player1.wins + ' - ' + data.currentGame.player2.wins + ' - ' + data.currentGame.ties)
-    checkMatch(p1Wins, p2Wins)
-    updateData(currentP1, 'ready', false)
-    updateData(currentP2, 'ready', false)
+    checkMatch(data.currentGame.player1.wins, data.currentGame.player2.wins)
+    p1ReadyRef.set(false)
+    p2ReadyRef.set(false)
   }
 
   const p1Win = function () {
