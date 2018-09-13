@@ -180,14 +180,15 @@ $(document).ready(function () {
   })
 
   const compare = function (x, y) {
-    console.log(data)
+    console.log(data.currentGame.player1.wins)
+    console.log(data.currentGame.player2.wins)
     if (tie(x, y)) {
       draw()
     } else if (or(or(and(rock(x), scissors(y)), and(paper(x), rock(y))), and(scissors(x), paper(y)))) {
       p1Win()
-      console.log(data)
     } else {
       p2Win()
+      console.log('p2Won');
     }
     setText('#score', data.currentGame.player1.wins + ' - ' + data.currentGame.player1.wins + ' - ' + data.currentGame.wins)
     checkMatch(p1Wins, p2Wins)
