@@ -182,6 +182,7 @@ $(document).ready(function () {
 
   const updateScoreDisplay = function () {
     setText('#score', data.currentGame.player1.wins + ' - ' + data.currentGame.player2.wins + ' - ' + data.currentGame.ties)
+  }
 
   p1WinsRef.on('value', updateScoreDisplay)
   p2WinsRef.on('value', updateScoreDisplay)
