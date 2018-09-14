@@ -180,8 +180,8 @@ $(document).ready(function () {
     }
   })
 
-  const updateScoreDisplay = function () {
-    setText('#score', data.currentGame.player1.wins + ' - ' + data.currentGame.player2.wins + ' - ' + data.currentGame.ties)
+  const updateScoreDisplay = function (x) {
+    setText('#score', x.val().currentGame.player1.wins + ' - ' + x.val().currentGame.player2.wins + ' - ' + x.val().currentGame.ties)
   }
 
   p1WinsRef.on('value', updateScoreDisplay)
@@ -236,8 +236,6 @@ $(document).ready(function () {
     ties++
     updateData('currentGame', 'ties', ties)
   }
-
-
 
   database.ref().on('value', function (snapshot) {
     data = snapshot.val()
