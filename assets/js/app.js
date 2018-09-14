@@ -182,6 +182,7 @@ $(document).ready(function () {
   })
   tiesRef.on('value', function (x) {
     setText('#score', data.currentGame.player1.wins + ' - ' + data.currentGame.player2.wins + ' - ' + x)
+    setText('#results', 'TIE')
   })
   winSelectionRef.on('value', function (x) {
     setText('#results', data.currentGame.player1.selection + ' beats ' + data.currentGame.player2.selection)
@@ -230,7 +231,7 @@ $(document).ready(function () {
   const draw = function () {
     setText('#results', 'TIE')
     ties++
-    updateData('currentGame', 'ties', ties)
+    tiesRef.set(ties)
   }
 
   database.ref().on('value', function (snapshot) {
