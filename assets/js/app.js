@@ -175,16 +175,19 @@ $(document).ready(function () {
   })
 
   p1WinsRef.on('value', function (x) {
-    setText('#results', data.currentGame.winSelection + ' beats ' + data.currentGame.lossSelection)
     setText('#score', x.val() + ' - ' + data.currentGame.player2.wins + ' - ' + data.currentGame.ties)
   })
   p2WinsRef.on('value', function (x) {
-    setText('#results', data.currentGame.winSelection + ' beats ' + data.currentGame.lossSelection)
     setText('#score', data.currentGame.player1.wins + ' - ' + x.val() + ' - ' + data.currentGame.ties)
   })
   tiesRef.on('value', function (x) {
-    setText('#results', data.currentGame.winSelection + ' beats ' + data.currentGame.lossSelection)
     setText('#score', data.currentGame.player1.wins + ' - ' + data.currentGame.player2.wins + ' - ' + x)
+  })
+  winSelectionRef.on('value', function (x) {
+    setText('#results', x + ' beats ' + data.currentGame.lossSelection)
+  })
+  lossSelectionRef.on('value', function (x) {
+    setText('#results', data.currentGame.winSelection + ' beats ' + x)
   })
 
   const compare = function (x, y) {
