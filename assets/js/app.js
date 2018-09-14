@@ -183,12 +183,12 @@ $(document).ready(function () {
   tiesRef.on('value', function (x) {
     setText('#score', data.currentGame.player1.wins + ' - ' + data.currentGame.player2.wins + ' - ' + x)
   })
-  winSelectionRef.on('value', function (x) {
-    setText('#results', x + ' beats ' + data.currentGame.lossSelection)
-  })
-  lossSelectionRef.on('value', function (x) {
-    setText('#results', data.currentGame.winSelection + ' beats ' + x)
-  })
+  // winSelectionRef.on('value', function (x) {
+  //   setText('#results', x + ' beats ' + data.currentGame.lossSelection)
+  // })
+  // lossSelectionRef.on('value', function (x) {
+  //   setText('#results', data.currentGame.winSelection + ' beats ' + x)
+  // })
 
   const compare = function (x, y) {
     if (tie(x, y)) {
