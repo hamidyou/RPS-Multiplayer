@@ -185,7 +185,7 @@ $(document).ready(function () {
     setText('#score', data.currentGame.player1.wins + ' - ' + x.val() + ' - ' + data.currentGame.ties)
   })
   tiesRef.on('value', function (x) {
-    setText('#score', x.currentGame.player1.wins + ' - ' + x.currentGame.player2.wins + ' - ' + x)
+    setText('#score', data.currentGame.player1.wins + ' - ' + data.currentGame.player2.wins + ' - ' + x)
   })
 
   const compare = function (x, y) {
