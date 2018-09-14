@@ -174,23 +174,20 @@ $(document).ready(function () {
     }
   })
 
-  const updateScoreDisplay = function (x) {
-    setText('#score', x.currentGame.player1.wins + ' - ' + x.currentGame.player2.wins + ' - ' + x().currentGame.ties)
-  }
-
   p1WinsRef.on('value', function (x) {
+    setText('#results', data.currentGame.winSelection + ' beats ' + data.currentGame.lossSelection)
     setText('#score', x.val() + ' - ' + data.currentGame.player2.wins + ' - ' + data.currentGame.ties)
   })
   p2WinsRef.on('value', function (x) {
+    setText('#results', data.currentGame.winSelection + ' beats ' + data.currentGame.lossSelection)
     setText('#score', data.currentGame.player1.wins + ' - ' + x.val() + ' - ' + data.currentGame.ties)
   })
   tiesRef.on('value', function (x) {
+    setText('#results', data.currentGame.winSelection + ' beats ' + data.currentGame.lossSelection)
     setText('#score', data.currentGame.player1.wins + ' - ' + data.currentGame.player2.wins + ' - ' + x)
   })
 
   const compare = function (x, y) {
-    console.log(x);
-    console.log(y);
     if (tie(x, y)) {
       draw()
     } else if (or(or(and(rock(x), scissors(y)), and(paper(x), rock(y))), and(scissors(x), paper(y)))) {
@@ -206,13 +203,13 @@ $(document).ready(function () {
   }
 
   const p1Win = function () {
-    // setText('#results', p1Selection + ' beats ' + p2Selection)
     winSelection = p1Selection
     winSelectionRef.set(winSelection)
     lossSelection = p2Selection
     lossSelectionRef.set(lossSelection)
     p1Wins++
     p1WinsRef.set(p1Wins)
+    setText('#results', winSelectionRef + ' beats ' + lossSelectionRef)
   }
 
   const p2Win = function () {
