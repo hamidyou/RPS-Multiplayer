@@ -184,9 +184,9 @@ $(document).ready(function () {
     setText('#score', x.val().currentGame.player1.wins + ' - ' + x.val().currentGame.player2.wins + ' - ' + x.val().currentGame.ties)
   }
 
-  p1WinsRef.on('value', updateScoreDisplay)
-  p2WinsRef.on('value', updateScoreDisplay)
-  tiesRef.on('value', updateScoreDisplay)
+  p1WinsRef.on('value', function (x) { updateScoreDisplay(x) })
+  p2WinsRef.on('value', function (x) { updateScoreDisplay(x) })
+  tiesRef.on('value', function (x) { updateScoreDisplay(x) })
 
   const compare = function (x, y) {
     console.log(x);
