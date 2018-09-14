@@ -180,9 +180,9 @@ $(document).ready(function () {
     }
   })
 
-  p1WinsRef.on('value', console.log(data.currentGame.player1.wins))
-  p2WinsRef.on('value', console.log(data.currentGame.player2.wins))
-  tiesRef.on('value', console.log(data.currentGame.ties))
+  p1WinsRef.on('value', console.log('a'))
+  p2WinsRef.on('value', console.log('b'))
+  tiesRef.on('value', console.log('c'))
 
   const compare = function (x, y) {
     console.log(x)
