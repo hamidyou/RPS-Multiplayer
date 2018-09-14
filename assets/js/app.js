@@ -180,7 +180,7 @@ $(document).ready(function () {
     }
   })
 
-  p1WinsRef.on('value', function () { console.log('a') })
+  p1WinsRef.on('value', function () { console.log(data.currentGame.player1.wins) })
   p2WinsRef.on('value', function () { console.log('b') })
   tiesRef.on('value', function () { console.log('c') })
 
