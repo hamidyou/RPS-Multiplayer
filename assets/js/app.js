@@ -150,7 +150,7 @@ $(document).ready(function () {
     setText('#p1Selection', p1Selection)
     p1SelectionRef.set(p1Selection)
     p1ReadyRef.set(p1Ready)
-    console.log(data)
+    console.log(data);
   }
 
   const p2Click = function (x) {
@@ -159,12 +159,12 @@ $(document).ready(function () {
     setText('#p2Selection', p2Selection)
     p2SelectionRef.set(p2Selection)
     p2ReadyRef.set(p2Ready)
-    console.log(data)
+    console.log(data);
   }
 
   $(document).on('click', '.p1option', function () {
     p1Click($(this))
-    console.log(data.currentGame.player2.ready)
+    console.log(data.currentGame.player2.ready);
     if (data.currentGame.player2.ready) {
       compare(data.currentGame.player1.selection, data.currentGame.player2.selection)
     }
@@ -174,27 +174,31 @@ $(document).ready(function () {
     p2Click($(this))
     console.log(data.currentGame.player1.ready)
     if (data.currentGame.player1.ready) {
-      console.log(data.currentGame.player1.selection)
-      console.log(data.currentGame.player2.selection)
+      console.log(data.currentGame.player1.selection);
+      console.log(data.currentGame.player2.selection);
       compare(data.currentGame.player1.selection, data.currentGame.player2.selection)
     }
   })
 
-  p1WinsRef.on('value', function () { console.log(data.currentGame.player1.wins) })
-  p2WinsRef.on('value', function () { console.log('b') })
-  tiesRef.on('value', function () { console.log('c') })
+  const updateScoreDisplay = function () {
+    setText('#score', data.currentGame.player1.wins + ' - ' + data.currentGame.player2.wins + ' - ' + data.currentGame.ties)
+  }
+
+  p1WinsRef.on('value', updateScoreDisplay)
+  p2WinsRef.on('value', updateScoreDisplay)
+  tiesRef.on('value', updateScoreDisplay)
 
   const compare = function (x, y) {
-    console.log(x)
-    console.log(y)
+    console.log(x);
+    console.log(y);
     if (tie(x, y)) {
       draw()
     } else if (or(or(and(rock(x), scissors(y)), and(paper(x), rock(y))), and(scissors(x), paper(y)))) {
       p1Win()
-      console.log('p1Won')
+      console.log('p1Won');
     } else {
       p2Win()
-      console.log('p2Won')
+      console.log('p2Won');
     }
     checkMatch(data.currentGame.player1.wins, data.currentGame.player2.wins)
     p1ReadyRef.set(false)
@@ -232,6 +236,8 @@ $(document).ready(function () {
     ties++
     updateData('currentGame', 'ties', ties)
   }
+
+
 
   database.ref().on('value', function (snapshot) {
     data = snapshot.val()
