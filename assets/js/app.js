@@ -181,12 +181,12 @@ $(document).ready(function () {
   })
 
   const updateScoreDisplay = function (x) {
-    setText('#score', x.val().currentGame.player1.wins + ' - ' + x.val().currentGame.player2.wins + ' - ' + x.val().currentGame.ties)
+    setText('#score', x.currentGame.player1.wins + ' - ' + x.currentGame.player2.wins + ' - ' + x().currentGame.ties)
   }
 
-  p1WinsRef.on('value', function (x) { updateScoreDisplay(x) })
-  p2WinsRef.on('value', function (x) { updateScoreDisplay(x) })
-  tiesRef.on('value', function (x) { updateScoreDisplay(x) })
+  p1WinsRef.on('value', function (x) { updateScoreDisplay(x.val()) })
+  p2WinsRef.on('value', function (x) { updateScoreDisplay(x.val()) })
+  tiesRef.on('value', function (x) { updateScoreDisplay(x.val()) })
 
   const compare = function (x, y) {
     console.log(x);
