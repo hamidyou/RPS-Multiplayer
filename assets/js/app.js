@@ -203,13 +203,10 @@ $(document).ready(function () {
   }
 
   const p1Win = function () {
-    winSelection = p1Selection
-    winSelectionRef.set(winSelection)
-    lossSelection = p2Selection
-    lossSelectionRef.set(lossSelection)
+    winSelectionRef.set(p1Selection)
+    lossSelectionRef.set(p2Selection)
     p1Wins++
     p1WinsRef.set(p1Wins)
-    setText('#results', winSelectionRef + ' beats ' + lossSelectionRef)
   }
 
   const p2Win = function () {
