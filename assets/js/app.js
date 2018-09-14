@@ -185,9 +185,11 @@ $(document).ready(function () {
   })
   winSelectionRef.on('value', function (x) {
     setText('#results', data.currentGame.player1.selection + ' beats ' + data.currentGame.player2.selection)
+    winSelectionRef.set(false)
   })
   lossSelectionRef.on('value', function (x) {
     setText('#results', data.currentGame.player2.selection + ' beats ' + data.currentGame.player1.selection)
+    lossSelectionRef(false)
   })
 
   const compare = function (x, y) {
