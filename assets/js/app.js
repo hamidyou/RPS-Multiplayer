@@ -150,7 +150,6 @@ $(document).ready(function () {
     setText('#p1Selection', p1Selection)
     p1SelectionRef.set(p1Selection)
     p1ReadyRef.set(p1Ready)
-    console.log(data);
   }
 
   const p2Click = function (x) {
@@ -159,12 +158,10 @@ $(document).ready(function () {
     setText('#p2Selection', p2Selection)
     p2SelectionRef.set(p2Selection)
     p2ReadyRef.set(p2Ready)
-    console.log(data);
   }
 
   $(document).on('click', '.p1option', function () {
     p1Click($(this))
-    console.log(data.currentGame.player2.ready);
     if (data.currentGame.player2.ready) {
       compare(data.currentGame.player1.selection, data.currentGame.player2.selection)
     }
@@ -172,10 +169,7 @@ $(document).ready(function () {
 
   $(document).on('click', '.p2option', function () {
     p2Click($(this))
-    console.log(data.currentGame.player1.ready)
     if (data.currentGame.player1.ready) {
-      console.log(data.currentGame.player1.selection);
-      console.log(data.currentGame.player2.selection);
       compare(data.currentGame.player1.selection, data.currentGame.player2.selection)
     }
   })
@@ -184,9 +178,15 @@ $(document).ready(function () {
     setText('#score', x.currentGame.player1.wins + ' - ' + x.currentGame.player2.wins + ' - ' + x().currentGame.ties)
   }
 
-  p1WinsRef.on('value', function (x) { updateScoreDisplay(x.val()) })
-  p2WinsRef.on('value', function (x) { updateScoreDisplay(x.val()) })
-  tiesRef.on('value', function (x) { updateScoreDisplay(x.val()) })
+  p1WinsRef.on('value', function (x) {
+    setText('#score', x.val() + ' - ' + data.currentGame.player2.wins + ' - ' + data.currentGame.ties)
+  })
+  p2WinsRef.on('value', function (x) {
+    setText('#score', data.currentGame.player1.wins + ' - ' + x.val() + ' - ' + data.currentGame.ties)
+  })
+  tiesRef.on('value', function (x) {
+    setText('#score', x.currentGame.player1.wins + ' - ' + x.currentGame.player2.wins + ' - ' + x)
+  })
 
   const compare = function (x, y) {
     console.log(x);
