@@ -212,15 +212,13 @@ $(document).ready(function () {
   const p1Win = function () {
     winSelectionRef.set(true)
     setText('#results', data.currentGame.player1.selection + ' beats ' + data.currentGame.player2.selection)
-    p1Wins++
-    p1WinsRef.set(p1Wins)
+    p1WinsRef.set(data.currentGame.player1.wins++)
   }
 
   const p2Win = function () {
     lossSelectionRef.set(true)
     setText('#results', data.currentGame.player2.selection + ' beats ' + data.currentGame.player1.selection)
-    p2Wins++
-    p2WinsRef.set(p2Wins)
+    p2WinsRef.set(data.currentGame.player2.wins++)
   }
 
   const checkMatch = function (x, y) {
