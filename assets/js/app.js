@@ -190,9 +190,7 @@ $(document).ready(function () {
   })
   tiesRef.on('value', function (x) {
     console.log('tiesRef');
-    p1Wins = x
-    p2Wins = data.currentGame.player2.wins
-    ties = data.currentGame.ties
+    ties = x
     setText('#score', data.currentGame.player1.wins + ' - ' + data.currentGame.player2.wins + ' - ' + x)
     setText('#results', 'TIE')
   })
