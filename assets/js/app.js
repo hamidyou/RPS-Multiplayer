@@ -175,21 +175,17 @@ $(document).ready(function () {
   })
 
   p1WinsRef.on('value', function (x) {
-    console.log('p1WinsRef');
+    console.log('p1WinsRef')
     p1Wins = x
-    p2Wins = data.currentGame.player2.wins
-    ties = data.currentGame.ties
     setText('#score', x.val() + ' - ' + data.currentGame.player2.wins + ' - ' + data.currentGame.ties)
   })
   p2WinsRef.on('value', function (x) {
-    console.log('p2WinsRef');
-    p1Wins = x
-    p2Wins = data.currentGame.player2.wins
-    ties = data.currentGame.ties
+    console.log('p2WinsRef')
+    p2Wins = x
     setText('#score', data.currentGame.player1.wins + ' - ' + x.val() + ' - ' + data.currentGame.ties)
   })
   tiesRef.on('value', function (x) {
-    console.log('tiesRef');
+    console.log('tiesRef')
     ties = x
     setText('#score', data.currentGame.player1.wins + ' - ' + data.currentGame.player2.wins + ' - ' + x)
     setText('#results', 'TIE')
