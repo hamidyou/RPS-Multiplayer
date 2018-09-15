@@ -176,14 +176,23 @@ $(document).ready(function () {
 
   p1WinsRef.on('value', function (x) {
     console.log('p1WinsRef');
+    p1Wins = x
+    p2Wins = data.currentGame.player2.wins
+    ties = data.currentGame.ties
     setText('#score', x.val() + ' - ' + data.currentGame.player2.wins + ' - ' + data.currentGame.ties)
   })
   p2WinsRef.on('value', function (x) {
     console.log('p2WinsRef');
+    p1Wins = x
+    p2Wins = data.currentGame.player2.wins
+    ties = data.currentGame.ties
     setText('#score', data.currentGame.player1.wins + ' - ' + x.val() + ' - ' + data.currentGame.ties)
   })
   tiesRef.on('value', function (x) {
     console.log('tiesRef');
+    p1Wins = x
+    p2Wins = data.currentGame.player2.wins
+    ties = data.currentGame.ties
     setText('#score', data.currentGame.player1.wins + ' - ' + data.currentGame.player2.wins + ' - ' + x)
     setText('#results', 'TIE')
   })
@@ -212,15 +221,15 @@ $(document).ready(function () {
   const p1Win = function () {
     winSelectionRef.set(true)
     setText('#results', data.currentGame.player1.selection + ' beats ' + data.currentGame.player2.selection)
-    p1Wins = data.currentGame.player1.wins
-    p1WinsRef.set(p1Wins++)
+    p1Wins++
+    p1WinsRef.set(p1Wins)
   }
 
   const p2Win = function () {
     lossSelectionRef.set(true)
     setText('#results', data.currentGame.player2.selection + ' beats ' + data.currentGame.player1.selection)
-    p2Wins = data.currentGame.player2.wins
-    p2WinsRef.set(p2Wins++)
+    p2Wins++
+    p2WinsRef.set(p2Wins)
   }
 
   const checkMatch = function (x, y) {
