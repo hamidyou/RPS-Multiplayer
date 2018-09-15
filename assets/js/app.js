@@ -175,19 +175,15 @@ $(document).ready(function () {
   })
 
   p1WinsRef.on('value', function (x) {
-    console.log('p1WinsRef')
     setText('#score', x.val() + ' - ' + data.currentGame.player2.wins + ' - ' + data.currentGame.ties)
     checkMatch(data.currentGame.player1.wins, data.currentGame.player2.wins)
   })
   p2WinsRef.on('value', function (x) {
-    console.log('p2WinsRef')
     setText('#score', data.currentGame.player1.wins + ' - ' + x.val() + ' - ' + data.currentGame.ties)
     checkMatch(data.currentGame.player1.wins, data.currentGame.player2.wins)
   })
   tiesRef.on('value', function (x) {
-    console.log('tiesRef')
-    console.log(x);
-    setText('#score', data.currentGame.player1.wins + ' - ' + data.currentGame.player2.wins + ' - ' + x)
+    setText('#score', data.currentGame.player1.wins + ' - ' + data.currentGame.player2.wins + ' - ' + x.val())
     setText('#results', 'TIE')
   })
   winSelectionRef.on('value', function (x) {
