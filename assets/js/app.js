@@ -227,7 +227,7 @@ $(document).ready(function () {
   }
 
   const checkMatch = function (x, y) {
-    if (or(x === 3, y === 3)) {
+    if (or(x === 2, y === 2)) {
       setText('#results', 'GAME OVER')
     }
   }
