@@ -190,7 +190,7 @@ $(document).ready(function () {
   })
   lossSelectionRef.on('value', function (x) {
     setText('#results', data.currentGame.player2.selection + ' beats ' + data.currentGame.player1.selection)
-    lossSelectionRef(false)
+    lossSelectionRef.set(false)
   })
 
   const compare = function (x, y) {
@@ -198,10 +198,8 @@ $(document).ready(function () {
       draw()
     } else if (or(or(and(rock(x), scissors(y)), and(paper(x), rock(y))), and(scissors(x), paper(y)))) {
       p1Win()
-      console.log('p1Won');
     } else {
       p2Win()
-      console.log('p2Won');
     }
     checkMatch(data.currentGame.player1.wins, data.currentGame.player2.wins)
     p1ReadyRef.set(false)
