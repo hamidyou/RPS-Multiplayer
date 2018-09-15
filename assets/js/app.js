@@ -89,14 +89,12 @@ $(document).ready(function () {
   const tiesRef = currentGameRef.child('ties')
   const winSelectionRef = currentGameRef.child('winSelection')
   const lossSelectionRef = currentGameRef.child('lossSelection')
-  const player1Data = data.currentGame.player1
-  const player2Data = data.currentGame.player2
 
   firebase.auth().onAuthStateChanged(function (x) {
     if (x) {
       login(x)
-      if (typeof player1Data.userId === 'undefined') updateP1()
-      else if (typeof player2Data.userId === 'undefined') updateP2()
+      if (typeof data.currentGame.player1.userId === 'undefined') updateP1()
+      else if (typeof data.currentGame.player2.userId === 'undefined') updateP2()
       else alert('Please wait your turn')
     } else {
       console.log('no user')
@@ -115,14 +113,14 @@ $(document).ready(function () {
   const updateP1 = function () {
     p1userIdRef.set(uid)
     p1NameRef.set(name)
-    setText('#p1Name', player1Data.name)
+    setText('#p1Name', data.currentGame.player1.name)
     hide('#p2hide')
   }
 
   const updateP2 = function () {
     p2userIdRef.set(uid)
     p2NameRef.set(name)
-    setText('#p2Name', player2Data.name)
+    setText('#p2Name', data.currentGame.player2.name)
     hide('#p1hide')
   }
 
@@ -133,6 +131,7 @@ $(document).ready(function () {
   }
 
   const initialize = function () {
+    hide('#results')
     tiesRef.set(ties)
     p1WinsRef.set(p1Wins)
     p1ReadyRef.set(p1Ready)
@@ -160,36 +159,38 @@ $(document).ready(function () {
 
   $(document).on('click', '.p1option', function () {
     p1Click($(this))
-    if (player2Data.ready) {
-      compare(player1Data.selection, player2Data.selection)
+    if (data.currentGame.player2.ready) {
+      compare(data.currentGame.player1.selection, data.currentGame.player2.selection)
     }
   })
 
   $(document).on('click', '.p2option', function () {
     p2Click($(this))
-    if (player1Data.ready) {
-      compare(player1Data.selection, player2Data.selection)
+    if (data.currentGame.player1.ready) {
+      compare(data.currentGame.player1.selection, data.currentGame.player2.selection)
     }
   })
 
   p1WinsRef.on('value', function (x) {
-    setText('#score', x.val() + ' - ' + player2Data.wins + ' - ' + data.currentGame.ties)
-    checkMatch(player1Data.wins, player2Data.wins)
+    setText('#score', x.val() + ' - ' + data.currentGame.player2.wins + ' - ' + data.currentGame.ties)
+    checkMatch(data.currentGame.player1.wins, data.currentGame.player2.wins)
   })
   p2WinsRef.on('value', function (x) {
-    setText('#score', player1Data.wins + ' - ' + x.val() + ' - ' + data.currentGame.ties)
-    checkMatch(player1Data.wins, player2Data.wins)
+    setText('#score', data.currentGame.player1.wins + ' - ' + x.val() + ' - ' + data.currentGame.ties)
+    checkMatch(data.currentGame.player1.wins, data.currentGame.player2.wins)
   })
   tiesRef.on('value', function (x) {
-    setText('#score', player1Data.wins + ' - ' + player2Data.wins + ' - ' + x.val())
+    setText('#score', data.currentGame.player1.wins + ' - ' + data.currentGame.player2.wins + ' - ' + x.val())
     setText('#results', 'TIE')
   })
   winSelectionRef.on('value', function (x) {
-    setText('#results', player1Data.selection + ' beats ' + player2Data.selection)
+    show('#results')
+    setText('#results', data.currentGame.player1.selection + ' beats ' + data.currentGame.player2.selection)
     winSelectionRef.set(false)
   })
   lossSelectionRef.on('value', function (x) {
-    setText('#results', player2Data.selection + ' beats ' + player1Data.selection)
+    show('#results')
+    setText('#results', data.currentGame.player2.selection + ' beats ' + data.currentGame.player1.selection)
     lossSelectionRef.set(false)
   })
 
@@ -207,16 +208,16 @@ $(document).ready(function () {
 
   const p1Win = function () {
     winSelectionRef.set(true)
-    setText('#results', player1Data.selection + ' beats ' + player2Data.selection)
-    p1Wins = player1Data.wins
+    setText('#results', data.currentGame.player1.selection + ' beats ' + data.currentGame.player2.selection)
+    p1Wins = data.currentGame.player1.wins
     p1Wins++
     p1WinsRef.set(p1Wins)
   }
 
   const p2Win = function () {
     lossSelectionRef.set(true)
-    setText('#results', player2Data.selection + ' beats ' + player1Data.selection)
-    p2Wins = player2Data.wins
+    setText('#results', data.currentGame.player2.selection + ' beats ' + data.currentGame.player1.selection)
+    p2Wins = data.currentGame.player2.wins
     p2Wins++
     p2WinsRef.set(p2Wins)
   }
@@ -236,20 +237,20 @@ $(document).ready(function () {
 
   database.ref().on('value', function (snapshot) {
     data = snapshot.val()
-    // p1Wins = player1Data.wins
-    // p2Wins = player2Data.wins
+    // p1Wins = data.currentGame.player1.wins
+    // p2Wins = data.currentGame.player2.wins
     // ties = data.currentGame.ties
     // setText('#score', p1Wins + ' - ' + p2Wins + ' - ' + ties)
-    // p1Selection = player1Data.selection
-    // p2Selection = player2Data.selection
+    // p1Selection = data.currentGame.player1.selection
+    // p2Selection = data.currentGame.player2.selection
     // winSelection = data.currentGame.winSelection
     // setText('#results', winSelection + ' beats ' + lossSelection)
     // lossSelection = data.currentGame.lossSelection
     // setText('#results', winSelection + ' beats ' + lossSelection)
-    // player1 = player1Data.userId
-    // player2 = player2Data.userId
-    // p1Ready = player1Data.ready
-    // p2Ready = player2Data.ready
+    // player1 = data.currentGame.player1.userId
+    // player2 = data.currentGame.player2.userId
+    // p1Ready = data.currentGame.player1.ready
+    // p2Ready = data.currentGame.player2.ready
   }, function (errorObject) {
     console.log('The read failed: ' + errorObject.code)
   })
