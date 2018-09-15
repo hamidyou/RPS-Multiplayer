@@ -212,7 +212,7 @@ $(document).ready(function () {
   const p1Win = function () {
     winSelectionRef.set(true)
     setText('#results', data.currentGame.player1.selection + ' beats ' + data.currentGame.player2.selection)
-    console.log(data.currentGame.player2.wins);
+    p1Wins = data.currentGame.player2.wins
     p1Wins++
     p1WinsRef.set(p1Wins)
   }
@@ -220,7 +220,7 @@ $(document).ready(function () {
   const p2Win = function () {
     lossSelectionRef.set(true)
     setText('#results', data.currentGame.player2.selection + ' beats ' + data.currentGame.player1.selection)
-    console.log(data.currentGame.player2.wins);
+    p2Wins = data.currentGame.player2.wins
     p2Wins++
     p2WinsRef.set(p2Wins)
   }
