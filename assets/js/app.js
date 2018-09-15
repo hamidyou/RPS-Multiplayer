@@ -216,6 +216,7 @@ $(document).ready(function () {
     winSelectionRef.set(true)
     setText('#results', data.currentGame.player1.selection + ' beats ' + data.currentGame.player2.selection)
     p1Wins++
+    console.log(p1Wins);
     p1WinsRef.set(p1Wins)
   }
 
@@ -223,6 +224,7 @@ $(document).ready(function () {
     lossSelectionRef.set(true)
     setText('#results', data.currentGame.player2.selection + ' beats ' + data.currentGame.player1.selection)
     p2Wins++
+    console.log(p2Wins);
     p2WinsRef.set(p2Wins)
   }
 
