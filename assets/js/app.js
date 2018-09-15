@@ -231,6 +231,7 @@ $(document).ready(function () {
 
   const draw = function () {
     setText('#results', 'TIE')
+    ties = data.currentGame.ties
     ties++
     tiesRef.set(ties)
   }
