@@ -186,6 +186,7 @@ $(document).ready(function () {
   })
   tiesRef.on('value', function (x) {
     console.log('tiesRef')
+    console.log(x);
     setText('#score', data.currentGame.player1.wins + ' - ' + data.currentGame.player2.wins + ' - ' + x)
     setText('#results', 'TIE')
   })
