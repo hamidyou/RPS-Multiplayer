@@ -186,17 +186,13 @@ $(document).ready(function () {
   winSelectionRef.on('value', function (x) {
     show('#results')
     setText('#results', data.currentGame.player1.selection + ' beats ' + data.currentGame.player2.selection)
-    resultsTimeout()
     winSelectionRef.set(false)
   })
   lossSelectionRef.on('value', function (x) {
     show('#results')
     setText('#results', data.currentGame.player2.selection + ' beats ' + data.currentGame.player1.selection)
-    resultsTimeout()
     lossSelectionRef.set(false)
   })
-
-  const resultsTimeout = () => setTimeout(hide('#results'), 2500)
 
   const compare = function (x, y) {
     if (tie(x, y)) {
