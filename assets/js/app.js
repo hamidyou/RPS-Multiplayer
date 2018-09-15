@@ -212,7 +212,7 @@ $(document).ready(function () {
   const p1Win = function () {
     winSelectionRef.set(true)
     setText('#results', data.currentGame.player1.selection + ' beats ' + data.currentGame.player2.selection)
-    p1Wins = data.currentGame.player2.wins
+    p1Wins = data.currentGame.player1.wins
     p1Wins++
     p1WinsRef.set(p1Wins)
   }
