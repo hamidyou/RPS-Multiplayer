@@ -171,8 +171,8 @@ $(document).ready(function () {
     }
   })
 
-  p1NameRef.on('value', x => setText('#p1Name', x.val()))
-  p2NameRef.on('value', x => setText('#p2Name', x.val()))
+  p1NameRef.on('value', x => setText('#p1Name', x.val()) ? setText('#p1OppSel', 'Selected') : 0)
+  p2NameRef.on('value', x => setText('#p2Name', x.val()) ? setText('#p2OppSel', 'Selected') : 0)
 
   p1WinsRef.on('value', function (x) {
     setText('#score', x.val() + ' - ' + data.currentGame.ties + ' - ' + data.currentGame.player2.wins)
@@ -199,6 +199,8 @@ $(document).ready(function () {
   })
 
   const compare = function (x, y) {
+    setText('#p1OppSel', '')
+    setText('#p2OppSel', '')
     if (tie(x, y)) {
       draw()
     } else if (or(or(and(rock(x), scissors(y)), and(paper(x), rock(y))), and(scissors(x), paper(y)))) {
