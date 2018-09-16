@@ -174,8 +174,8 @@ $(document).ready(function () {
   p1NameRef.on('value', x => setText('#p1Name', x.val()))
   p2NameRef.on('value', x => setText('#p2Name', x.val()))
 
-  p1ReadyRef.on('value', () => setText('#p1OppSel', 'Selected'))
-  p2ReadyRef.on('value', () => setText('#p2OppSel', 'Selected'))
+  p1ReadyRef.on('value', x => x.val() ? setText('#p1OppSel', 'Selected') : setText('#p1OppSel', 'Thnking...'))
+  p2ReadyRef.on('value', x => x.val() ? setText('#p2OppSel', 'Selected') : setText('#p2OppSel', 'Thnking...'))
 
   p1WinsRef.on('value', function (x) {
     setText('#score', x.val() + ' - ' + data.currentGame.ties + ' - ' + data.currentGame.player2.wins)
