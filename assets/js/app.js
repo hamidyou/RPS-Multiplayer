@@ -171,8 +171,8 @@ $(document).ready(function () {
     }
   })
 
-  p1NameRef.on('value', x => setText('#p1Name', x))
-  p2NameRef.on('value', x => setText('#p2Name', x))
+  p1NameRef.on('value', x => setText('#p1Name', x.val()))
+  p2NameRef.on('value', x => setText('#p2Name', x.val()))
 
   p1WinsRef.on('value', function (x) {
     setText('#score', x.val() + ' - ' + data.currentGame.ties + ' - ' + data.currentGame.player2.wins)
