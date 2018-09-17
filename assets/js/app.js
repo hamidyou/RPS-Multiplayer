@@ -207,10 +207,12 @@ $(document).ready(function () {
   })
 
   winSelectionRef.on('value', function (x) {
+    console.log(data)
     setText('#results', data.currentGame.player1.selection + ' beats ' + data.currentGame.player2.selection)
     winSelectionRef.set(false)
   })
   lossSelectionRef.on('value', function (x) {
+    console.log(data)
     setText('#results', data.currentGame.player2.selection + ' beats ' + data.currentGame.player1.selection)
     lossSelectionRef.set(false)
   })
@@ -257,6 +259,7 @@ $(document).ready(function () {
 
   database.ref().on('value', function (snapshot) {
     data = snapshot.val()
+    console.log(data)
   }, function (errorObject) {
     console.log('The read failed: ' + errorObject.code)
   })
