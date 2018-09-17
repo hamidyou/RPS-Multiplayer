@@ -136,6 +136,7 @@ $(document).ready(function () {
             updatePlayer('player2'),
             () => false))
       ], x)
+      console.log(isPlayerNull('player1'))
     } else {
       console.log('no user')
     }
