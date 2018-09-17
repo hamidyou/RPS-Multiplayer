@@ -191,12 +191,10 @@ $(document).ready(function () {
   })
 
   winSelectionRef.on('value', function (x) {
-    show('#results')
     setText('#results', data.currentGame.player1.selection + ' beats ' + data.currentGame.player2.selection)
     winSelectionRef.set(false)
   })
   lossSelectionRef.on('value', function (x) {
-    show('#results')
     setText('#results', data.currentGame.player2.selection + ' beats ' + data.currentGame.player1.selection)
     lossSelectionRef.set(false)
   })
@@ -204,6 +202,7 @@ $(document).ready(function () {
   const compare = function (x, y) {
     setText('#p1OppSel', '')
     setText('#p2OppSel', '')
+    show('#results')
     if (tie(x, y)) {
       draw()
     } else if (or(or(and(rock(x), scissors(y)), and(paper(x), rock(y))), and(scissors(x), paper(y)))) {
