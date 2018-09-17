@@ -105,7 +105,7 @@ $(document).ready(function () {
   }
 
   const updatePlayer = kyanite.curry(function (player, x) {
-    const [hidePlayer, ref] = player === 'player1' ? ['#p2hide', player2ref] : ['#p1hide', player1ref]
+    const [hidePlayer, ref] = player === 'player1' ? ['#p2hide', player1ref] : ['#p1hide', player2ref]
 
     ref.child('userId').set(x.uid)
     ref.child('name').set(x.displayName)
