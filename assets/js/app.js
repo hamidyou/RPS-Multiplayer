@@ -91,6 +91,8 @@ $(document).ready(function () {
   const lossSelectionRef = currentGameRef.child('lossSelection')
 
   const isPlayerNull = kyanite.curry(function (player, x) {
+    console.log(player)
+    console.log(x)
     return kyanite.pipe([
       kyanite.path(['currentGame', player, 'userId']),
       kyanite.isNil
@@ -105,6 +107,8 @@ $(document).ready(function () {
   }
 
   const updatePlayer = kyanite.curry(function (player, x) {
+    console.log(player)
+    console.log(x)
     const [hidePlayer, ref] = player === 'player1' ? ['#p2hide', player1ref] : ['#p1hide', player2ref]
 
     ref.child('userId').set(x.uid)
