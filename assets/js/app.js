@@ -125,15 +125,15 @@ $(document).ready(function () {
         // If not place the new user there
         // If so place go on to check player 2 slot
         kyanite.branch(
-          isPlayerNull('player1'),
-          updatePlayer('player1'),
+          isPlayerNull('player2'),
+          updatePlayer('player2'),
 
           // Check to see if a user exists in player 2 slot
           // If not place the new user there
           // If so place the user in a queue
           kyanite.branch(
-            isPlayerNull('player2'),
-            updatePlayer('player2'),
+            isPlayerNull('player1'),
+            updatePlayer('player1'),
             () => false))
       ], x)
     } else {
