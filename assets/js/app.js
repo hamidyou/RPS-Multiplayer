@@ -90,40 +90,52 @@ $(document).ready(function () {
   const winSelectionRef = currentGameRef.child('winSelection')
   const lossSelectionRef = currentGameRef.child('lossSelection')
 
+  const isPlayerNull = kyanite.curry(function (player, x) {
+    return kyanite.pipe([
+      kyanite.path(['currentGame', player, 'userId']),
+      kyanite.isNil
+    ], x)
+  })
+
+  const createUser = function (x) {
+    usersRef.child(x.uid).set({
+      name: x.displayName
+    })
+    return x
+  }
+
+  const updatePlayer = kyanite.curry(function (player, x) {
+    const [hidePlayer, ref] = player === 'player1' ? ['#p2hide', player2ref] : ['#p1hide', player1ref]
+
+    ref.child('userId').set(x.uid)
+    ref.child('name').set(x.displayName)
+
+    hide(hidePlayer)
+  })
+
   firebase.auth().onAuthStateChanged(function (x) {
     if (x) {
-      if (typeof data.currentGame.player1.userId === 'undefined') updateP1(login(x))
-      else if (typeof data.currentGame.player2.userId === 'undefined') updateP2(login(x))
-      else alert('Please wait your turn')
+      kyanite.pipe([
+        createUser,
+        // Check to see if a user exists in player 1 slot
+        // If not place the new user there
+        // If so place go on to check player 2 slot
+        kyanite.branch(
+          isPlayerNull('player1'),
+          updatePlayer('player1'),
+
+          // Check to see if a user exists in player 2 slot
+          // If not place the new user there
+          // If so place the user in a queue
+          kyanite.branch(
+            isPlayerNull('player2'),
+            updatePlayer('player2'),
+            () => false))
+      ], x)
     } else {
       console.log('no user')
     }
   })
-
-  const login = function (x) {
-    show('.main')
-    name = x.displayName
-    uid = x.uid
-    usersRef.child(uid).set({
-      name: name
-    })
-    return [uid, name]
-  }
-
-  const updateP1 = function ([u, n]) {
-    p1userIdRef.set(u)
-    p1NameRef.set(n)
-    setText('#p1Name', n)
-    hide('#p2hide')
-  }
-
-  const updateP2 = function () {
-    p2userIdRef.set(uid)
-    p2NameRef.set(name)
-    setText('#p2Name', data.currentGame.player2.name)
-    hide('#p1hide')
-  }
-
   // const updateData = function (parent, key, value) {
   //   var obj = {}
   //   obj[key] = value
