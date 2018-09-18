@@ -158,6 +158,7 @@ $(document).ready(() => {
   }
 
   const p1Click = function (x) {
+    console.log(x)
     p1Selection = $(x).val()
     p1Ready = true
     setText('#p1Selection', p1Selection)
@@ -174,7 +175,6 @@ $(document).ready(() => {
   }
 
   $(document).on('click', '.p1option', () => {
-    console.log(this)
     p1Click($(this))
     if (data.currentGame.player2.ready) {
       compare(data.currentGame.player1.selection, data.currentGame.player2.selection)
