@@ -135,7 +135,7 @@ $(document).ready(function () {
             isPlayerNull('player1'),
             updatePlayer('player1'),
             () => false))
-      ], x)
+      ], data)
     } else {
       console.log('no user')
     }
