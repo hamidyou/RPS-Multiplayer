@@ -133,7 +133,7 @@ $(document).ready(() => {
           kyanite.branch(
             isPlayerNull('player1'),
             updatePlayer('player1'),
-            () => false))
+            setText('#score', 'Game currently in progress. Please wait your turn.')))
       ], x)
       show('.main')
     } else {
