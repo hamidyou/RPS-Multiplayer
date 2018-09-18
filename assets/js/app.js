@@ -136,6 +136,7 @@ $(document).ready(function () {
             updatePlayer('player1'),
             () => false))
       ], x)
+      show('.main')
     } else {
       console.log('no user')
     }
