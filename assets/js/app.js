@@ -96,7 +96,7 @@ $(document).ready(function () {
     return kyanite.pipe([
       kyanite.path(['currentGame', player, 'userId']),
       kyanite.isNil
-    ], x)
+    ], data)
   })
 
   const createUser = function (x) {
@@ -135,7 +135,7 @@ $(document).ready(function () {
             isPlayerNull('player1'),
             updatePlayer('player1'),
             () => false))
-      ], data)
+      ], x)
     } else {
       console.log('no user')
     }
