@@ -248,7 +248,12 @@ $(document).ready(() => {
     p2WinsRef.set(p2Wins)
   }
 
-  const checkMatch = (x, y) => or(x === 2, y === 2) ? setText('#results', 'GAME OVER') : 0
+  const checkMatch = (x, y) => or(x === 2, y === 2) ? gameOver() : 0
+
+  const gameOver = () => {
+    setText('#results', 'GAME OVER')
+    show('#playAgain')
+  }
 
   const draw = function () {
     setText('#results', 'TIE')
@@ -264,7 +269,10 @@ $(document).ready(() => {
     console.log('The read failed: ' + errorObject.code)
   })
 
+  $(document).on('click', '#playAgain', initialize())
+
   hide('.main')
+  hide('#playAgain')
   initialize()
 
   // Store Connections
