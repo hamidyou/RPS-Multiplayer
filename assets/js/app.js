@@ -182,7 +182,8 @@ $(document).ready(() => {
   })
 
   $(document).on('click', '.p2option', () => {
-    console.log($(this))
+    console.log($(this).text())
+    console.log(this.text());
     p2Click($(this))
     if (data.currentGame.player1.ready) {
       compare(data.currentGame.player1.selection, data.currentGame.player2.selection)
