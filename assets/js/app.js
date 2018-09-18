@@ -269,7 +269,7 @@ $(document).ready(() => {
     console.log('The read failed: ' + errorObject.code)
   })
 
-  $(document).on('click', '#playAgain', initialize())
+  $(document).on('click', '#playAgain', initialize)
 
   hide('.main')
   hide('#playAgain')
