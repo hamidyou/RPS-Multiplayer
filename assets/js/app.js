@@ -1,5 +1,4 @@
-$(document).ready(function () {
-  // const auth = firebase.auth()
+$(document).ready(() => {
   const setText = (elm, str) => $(elm).text(str)
   // const empty = elm => $(elm).empty()
   const tie = (x, y) => x === y
@@ -149,13 +148,15 @@ $(document).ready(function () {
 
   const initialize = function () {
     hide('#results')
-    tiesRef.set(ties)
-    p1WinsRef.set(p1Wins)
-    p1ReadyRef.set(p1Ready)
-    p2WinsRef.set(p2Wins)
-    p2ReadyRef.set(p2Ready)
-    winSelectionRef.set(winSelection)
-    lossSelectionRef.set(lossSelection)
+    tiesRef.set(0)
+    p1WinsRef.set(0)
+    p1ReadyRef.set(false)
+    p2WinsRef.set(0)
+    p2ReadyRef.set(false)
+    winSelectionRef.set('')
+    lossSelectionRef.set('')
+    p1NameRef.set('Waiting for Opponent')
+    p2NameRef.set('Waiting for Opponent')
   }
 
   const p1Click = function (x) {
@@ -174,14 +175,14 @@ $(document).ready(function () {
     p2ReadyRef.set(p2Ready)
   }
 
-  $(document).on('click', '.p1option', function () {
+  $(document).on('click', '.p1option', () => {
     p1Click($(this))
     if (data.currentGame.player2.ready) {
       compare(data.currentGame.player1.selection, data.currentGame.player2.selection)
     }
   })
 
-  $(document).on('click', '.p2option', function () {
+  $(document).on('click', '.p2option', () => {
     p2Click($(this))
     if (data.currentGame.player1.ready) {
       compare(data.currentGame.player1.selection, data.currentGame.player2.selection)
@@ -194,15 +195,15 @@ $(document).ready(function () {
   p1ReadyRef.on('value', x => x.val() ? setText('#p2OppSel', 'Selected') : setText('#p2OppSel', 'Thinking...'))
   p2ReadyRef.on('value', x => x.val() ? setText('#p1OppSel', 'Selected') : setText('#p1OppSel', 'Thinking...'))
 
-  p1WinsRef.on('value', function (x) {
+  p1WinsRef.on('value', x => {
     setText('#score', x.val() + ' - ' + data.currentGame.ties + ' - ' + data.currentGame.player2.wins)
     checkMatch(data.currentGame.player1.wins, data.currentGame.player2.wins)
   })
-  p2WinsRef.on('value', function (x) {
+  p2WinsRef.on('value', x => {
     setText('#score', data.currentGame.player1.wins + ' - ' + data.currentGame.ties + ' - ' + x.val())
     checkMatch(data.currentGame.player1.wins, data.currentGame.player2.wins)
   })
-  tiesRef.on('value', function (x) {
+  tiesRef.on('value', (x) => {
     setText('#score', data.currentGame.player1.wins + ' - ' + x.val() + ' - ' + data.currentGame.player2.wins)
     setText('#results', 'TIE')
   })
