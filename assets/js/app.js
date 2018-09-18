@@ -112,7 +112,7 @@ $(document).ready(() => {
 
     ref.child('userId').set(x.uid)
     ref.child('name').set(x.displayName)
-
+    console.log(hidePlayer)
     hide(hidePlayer)
   })
 
@@ -248,7 +248,7 @@ $(document).ready(() => {
     p2WinsRef.set(p2Wins)
   }
 
-  const checkMatch = (x, y) => or(x === 2, y === 2) ? gameOver() : 0
+  const checkMatch = (x, y) => or(x > 2, y > 2) ? gameOver() : 0
 
   const gameOver = () => {
     setText('#results', 'GAME OVER')
