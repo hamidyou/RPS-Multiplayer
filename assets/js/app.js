@@ -119,6 +119,8 @@ $(document).ready(() => {
   firebase.auth().onAuthStateChanged(function (x) {
     if (x) {
       show('.main')
+      p1NameRef.set('Waiting for Opponent')
+      p2NameRef.set('Waiting for Opponent')
       kyanite.pipe([
         createUser,
         // Check to see if a user exists in player 1 slot
@@ -155,8 +157,6 @@ $(document).ready(() => {
     p2ReadyRef.set(false)
     winSelectionRef.set('')
     lossSelectionRef.set('')
-    p1NameRef.set('Waiting for Opponent')
-    p2NameRef.set('Waiting for Opponent')
   }
 
   const p1Click = function (x) {
