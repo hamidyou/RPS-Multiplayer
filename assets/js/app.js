@@ -158,7 +158,6 @@ $(document).ready(() => {
   }
 
   const p1Click = function (x) {
-    console.log(x)
     p1Selection = $(x).val()
     p1Ready = true
     setText('#p1Selection', p1Selection)
@@ -174,16 +173,14 @@ $(document).ready(() => {
     p2ReadyRef.set(p2Ready)
   }
 
-  $(document).on('click', '.p1option', () => {
+  $(document).on('click', '.p1option', function () {
     p1Click($(this))
     if (data.currentGame.player2.ready) {
       compare(data.currentGame.player1.selection, data.currentGame.player2.selection)
     }
   })
 
-  $(document).on('click', '.p2option', () => {
-    console.log($(this).text())
-    console.log(this.text());
+  $(document).on('click', '.p2option', function () {
     p2Click($(this))
     if (data.currentGame.player1.ready) {
       compare(data.currentGame.player1.selection, data.currentGame.player2.selection)
