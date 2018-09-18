@@ -118,6 +118,7 @@ $(document).ready(() => {
 
   firebase.auth().onAuthStateChanged(function (x) {
     if (x) {
+      show('.main')
       kyanite.pipe([
         createUser,
         // Check to see if a user exists in player 1 slot
@@ -135,7 +136,6 @@ $(document).ready(() => {
             updatePlayer('player1'),
             setText('#score', 'Game currently in progress. Please wait your turn.')))
       ], x)
-      show('.main')
     } else {
       console.log('no user')
     }
